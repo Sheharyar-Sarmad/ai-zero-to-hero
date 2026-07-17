@@ -1,0 +1,83 @@
+[
+  {
+    "accountNumber": 8015,
+    "name": "sarmad",
+    "age": 34,
+    "email": "sarmad@gmail.com",
+    "pin": "22d489a26e5e6a2300c879a3c5bb861cd1cab6203568bc89c64b3f546842234f",
+    "balance": 10019200.0,
+    "createdAt": "2026-07-10T09:58:37.664986",
+    "transactions": [
+      {
+        "id": "TXN20260710095850621124",
+        "type": "DEPOSIT",
+        "amount": 10000000.0,
+        "balance": 10000000.0,
+        "date": "2026-07-10T09:58:50.991993"
+      },
+      {
+        "id": "TXN20260710101454729717",
+        "type": "TRANSFER_RECEIVED",
+        "amount": 200.0,
+        "sender": "sheharyar",
+        "sender_account": 2246,
+        "balance": 10000200.0,
+        "date": "2026-07-10T10:14:54.784097"
+      },
+      {
+        "id": "TXN20260710102143588047",
+        "type": "TRANSFER_RECEIVED",
+        "amount": 2000.0,
+        "sender": "aqeela",
+        "sender_account": 2246,
+        "balance": 10002200.0,
+        "date": "2026-07-10T10:21:43.472621"
+      },
+      {
+        "id": "TXN20260710102320147984",
+        "type": "TRANSFER_RECEIVED",
+        "amount": 8000.0,
+        "sender": "aqeela",
+        "sender_account": 2246,
+        "balance": 10010200.0,
+        "date": "2026-07-10T10:23:20.800242"
+      },
+      {
+        "id": "TXN20260710182427824175",
+        "type": "TRANSFER_RECEIVED",
+        "amount": 9000.0,
+        "sender": "aqeel",
+        "sender_account": 2235,
+        "balance": 10019200.0,
+        "date": "2026-07-10T18:24:27.602079"
+      }
+    ]
+  },
+  {
+    "accountNumber": 2235,
+    "name": "aqeel",
+    "age": 50,
+    "email": "aqeel@gmail.com",
+    "pin": "efa06e0f45450a738eecd136a54847acde733996c548f100eebff7a78705d632",
+    "balance": 436544.0,
+    "createdAt": "2026-07-10T10:25:59.407451",
+    "transactions": [
+      {
+        "id": "TXN20260710102623896370",
+        "type": "DEPOSIT",
+        "amount": 445544.0,
+        "balance": 445544.0,
+        "date": "2026-07-10T10:26:23.295826"
+      },
+      {
+        "id": "TXN20260710182427932368",
+        "type": "TRANSFER_SENT",
+        "amount": 9000.0,
+        "recipient": "sarmad",
+        "recipient_account": 8015,
+        "balance": 436544.0,
+        "date": "2026-07-10T18:24:27.602034"
+      }
+    ]
+  }
+]
