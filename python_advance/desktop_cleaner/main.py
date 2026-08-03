@@ -17,7 +17,7 @@ from tkinter import font as tkfont
 import winshell
 from pathlib import Path
 
-# ==================== SYSTEM DIAGNOSTICS ====================
+#  SYSTEM DIAGNOSTICS 
 class SystemDiagnostics:
     @staticmethod
     def check_system_health():
@@ -105,7 +105,7 @@ class SystemDiagnostics:
         
         return info
 
-# ==================== SOFTWARE MANAGER ====================
+# SOFTWARE MANAGER 
 class SoftwareManager:
     @staticmethod
     def get_installed_software():
@@ -197,7 +197,7 @@ class SoftwareManager:
         except Exception as e:
             return False, f"Error: {str(e)}"
 
-# ==================== MAIN APPLICATION ====================
+# MAIN APPLICATION 
 class ModernCleanerApp:
     def __init__(self, root):
         self.root = root
@@ -1171,7 +1171,7 @@ class ModernCleanerApp:
             self.cancel_btn.configure(state=tk.DISABLED)
             self.progress_var.set(0)
 
-# ==================== MAIN ====================
+# MAIN 
 def main():
     root = tk.Tk()
     

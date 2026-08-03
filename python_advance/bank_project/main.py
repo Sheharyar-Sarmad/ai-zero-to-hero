@@ -1,7 +1,7 @@
 """
-================================================================================
-                    🏦 COMPLETE SECURE BANKING SYSTEM
-================================================================================
+
+                    COMPLETE SECURE BANKING SYSTEM
+
 A fully-featured banking application with:
 - Account creation with unique identifiers
 - Secure PIN-based authentication
@@ -9,24 +9,19 @@ A fully-featured banking application with:
 - Account search and money transfer
 - Data persistence using JSON
 - Exception handling and input validation
-================================================================================
 """
 
-# ============================================
 # STANDARD LIBRARY IMPORTS
-# ============================================
 import json
 import random
 import hashlib      # For secure password/PIN hashing
 import re           # For email validation
-import string       # ✅ FIXED: Added string import
+import string       # FIXED: Added string import
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, Dict, List, Any
 
-# ============================================
 # SECURITY CONFIGURATION
-# ============================================
 class SecurityConfig:
     """Security configuration and constants"""
     SALT = "BankSecureSalt2026!"  # Salt for hashing (in production, use environment variables)
@@ -46,9 +41,7 @@ class SecurityConfig:
         return SecurityConfig.hash_pin(pin) == hashed_pin
 
 
-# ============================================
 # MAIN BANK CLASS
-# ============================================
 class Bank:
     """
     Complete Banking System with high security and full features
@@ -63,17 +56,13 @@ class Bank:
     - Data persistence with JSON
     """
     
-    # ============================================
     # CLASS VARIABLES
-    # ============================================
     database = 'data.json'          # JSON file for data persistence
     data: List[Dict[str, Any]] = [] # In-memory data storage
     current_session: Dict[str, Any] = None  # Current user session
     session_timestamp: float = 0    # Session start time
     
-    # ============================================
     # INITIALIZATION & DATA LOADING
-    # ============================================
     try:
         """Load existing data from JSON file on startup"""
         if Path(database).exists():
@@ -89,9 +78,7 @@ class Bank:
         print(f"\n❌ Error loading data: {err}")
         data = []
     
-    # ============================================
     # DATA PERSISTENCE METHODS
-    # ============================================
     @staticmethod
     def update() -> bool:
         """
@@ -106,9 +93,7 @@ class Bank:
             print(f"❌ Error saving data: {err}")
             return False
     
-    # ============================================
     # VALIDATION METHODS
-    # ============================================
     @staticmethod
     def validate_name(name: str) -> bool:
         """Validate name: 2-50 characters, letters and spaces only"""
@@ -161,9 +146,7 @@ class Bank:
         return not any(account['accountNumber'] == acc_num 
                       for account in Bank.data)
     
-    # ============================================
     # ACCOUNT GENERATION METHODS
-    # ============================================
     @staticmethod
     def generate_account_number() -> Optional[int]:
         """
@@ -194,12 +177,10 @@ class Bank:
     def generate_transaction_id() -> str:
         """Generate a unique transaction ID"""
         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-        random_suffix = ''.join(random.choices(string.digits, k=6))  # ✅ FIXED: Uses string.digits
+        random_suffix = ''.join(random.choices(string.digits, k=6))  # FIXED: Uses string.digits
         return f"TXN{timestamp}{random_suffix}"
     
-    # ============================================
     # AUTHENTICATION METHODS
-    # ============================================
     @staticmethod
     def verify_user(account_number: int, pin: int) -> Optional[Dict[str, Any]]:
         """
@@ -244,9 +225,7 @@ class Bank:
         name_lower = name.lower()
         return [acc for acc in Bank.data if name_lower in acc.get('name', '').lower()]
     
-    # ============================================
     # SESSION MANAGEMENT
-    # ============================================
     @staticmethod
     def start_session(account: Dict[str, Any]) -> bool:
         """Start a user session"""
@@ -284,9 +263,7 @@ class Bank:
             return func(*args, **kwargs)
         return wrapper
     
-    # ============================================
     # CORE BANKING OPERATIONS
-    # ============================================
     def create_account(self) -> None:
         """
         Create a new bank account with full validation
@@ -297,7 +274,7 @@ class Bank:
         print("=" * 50)
         
         try:
-            # ========== GET USER INPUT ==========
+            # GET USER INPUT 
             name = input("\n📝 Enter your full name: ").strip()
             
             # Validate name
@@ -310,7 +287,7 @@ class Bank:
                 print(f"\n❌ Account with name '{name}' already exists!")
                 return
             
-            # ========== AGE ==========
+            # AGE 
             try:
                 age = int(input("📅 Enter your age: "))
             except ValueError:
@@ -321,7 +298,7 @@ class Bank:
                 print("\n❌ You must be between 18 and 120 years old.")
                 return
             
-            # ========== EMAIL ==========
+            # EMAIL 
             email = input("📧 Enter your email address: ").strip()
             
             if not self.validate_email(email):
@@ -332,7 +309,7 @@ class Bank:
                 print(f"\n❌ Email '{email}' is already registered!")
                 return
             
-            # ========== PIN (SECURE) ==========
+            # PIN (SECURE) 
             try:
                 pin = int(input("🔑 Enter your 4-digit PIN: "))
             except ValueError:
@@ -343,7 +320,7 @@ class Bank:
                 print("\n❌ PIN must be exactly 4 digits!")
                 return
             
-            # ========== CONFIRM PIN ==========
+            # CONFIRM PIN 
             try:
                 pin_confirm = int(input("🔑 Confirm your PIN: "))
             except ValueError:
@@ -354,13 +331,13 @@ class Bank:
                 print("\n❌ PINs do not match!")
                 return
             
-            # ========== GENERATE ACCOUNT NUMBER ==========
+            # GENERATE ACCOUNT NUMBER 
             account_number = self.generate_account_number()
             if account_number is None:
                 print("\n❌ Could not generate unique account number. Please try again.")
                 return
             
-            # ========== CREATE ACCOUNT ==========
+            # CREATE ACCOUNT 
             # Hash the PIN for secure storage
             hashed_pin = SecurityConfig.hash_pin(pin)
             
@@ -369,7 +346,7 @@ class Bank:
                 "name": name,
                 "age": age,
                 "email": email,
-                "pin": hashed_pin,  # ✅ Stored as hash!
+                "pin": hashed_pin,  # Stored as hash!
                 "balance": 0.0,
                 "createdAt": datetime.now().isoformat(),
                 "transactions": []
@@ -383,7 +360,7 @@ class Bank:
                 Bank.data.pop()  # Remove if save failed
                 return
             
-            # ========== SUCCESS MESSAGE ==========
+            # SUCCESS MESSAGE 
             print("\n" + "=" * 50)
             print("🎉 ACCOUNT CREATED SUCCESSFULLY!")
             print("=" * 50)
@@ -396,16 +373,15 @@ class Bank:
             print("   Store them safely and never share your PIN with anyone.")
             print("\n🔐 Your PIN is securely encrypted and stored.")
             
-            # ========== AUTO-LOGIN ==========
+            # AUTO-LOGIN 
             self.start_session(account_info)
             print("\n✅ You are now logged in!")
             
         except Exception as err:
             print(f"\n❌ Error creating account: {err}")
     
-    # ============================================
     # LOGIN SYSTEM
-    # ============================================
+
     def login(self) -> bool:
         """
         Secure login system with rate limiting
@@ -456,9 +432,7 @@ class Bank:
         else:
             print("\nℹ️  You are not logged in.")
     
-    # ============================================
     # CORE TRANSACTION METHODS (FIXED)
-    # ============================================
     
     def deposit(self) -> None:
         """Deposit money into current account (requires login)"""
@@ -610,9 +584,7 @@ class Bank:
         except Exception as err:
             print(f"\n❌ Error during withdrawal: {err}")
     
-    # ============================================
     # TRANSFER MONEY
-    # ============================================
     def transfer_money(self) -> None:
         """Transfer money to another account (requires login)"""
         if not self.is_session_active():
@@ -716,7 +688,7 @@ class Bank:
             sender_acc['balance'] -= amount
             receiver_acc['balance'] += amount
             
-            # Record transactions - ✅ FIXED: Uses string.digits correctly
+            # Record transactions - FIXED: Uses string.digits correctly
             sender_txn = {
                 "id": self.generate_transaction_id(),
                 "type": "TRANSFER_SENT",
@@ -763,9 +735,7 @@ class Bank:
         except Exception as err:
             print(f"\n❌ Error during transfer: {err}")
     
-    # ============================================
     # VIEW ACCOUNT DETAILS
-    # ============================================
     def view_account_details(self) -> None:
         """View account details and transaction history (requires login)"""
         if not self.is_session_active():
@@ -830,9 +800,7 @@ class Bank:
         # Update session with latest data
         self.start_session(actual_account)
     
-    # ============================================
     # UPDATE ACCOUNT
-    # ============================================
     def update_account(self) -> None:
         """Update account details (requires login)"""
         if not self.is_session_active():
@@ -950,9 +918,7 @@ class Bank:
         except Exception as err:
             print(f"\n❌ Error updating account: {err}")
     
-    # ============================================
     # DELETE ACCOUNT
-    # ============================================
     def delete_account(self) -> None:
         """
         Permanently delete an account (requires login)
@@ -1025,9 +991,7 @@ class Bank:
             # Rollback
             Bank.data.append(account)
     
-    # ============================================
     # SEARCH ACCOUNTS
-    # ============================================
     def search_accounts(self) -> None:
         """
         Search for accounts by name (public, doesn't require login)
@@ -1088,9 +1052,7 @@ class Bank:
             print(f"\n❌ Error during search: {err}")
 
 
-# ============================================
 # MAIN APPLICATION ENTRY POINT
-# ============================================
 def main():
     """
     Main application loop with secure menu system
@@ -1196,8 +1158,6 @@ def main():
                 break
 
 
-# ============================================
 # APPLICATION ENTRY POINT
-# ============================================
 if __name__ == "__main__":
     main()

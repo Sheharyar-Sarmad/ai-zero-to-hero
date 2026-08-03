@@ -5,7 +5,7 @@
     "age": 34,
     "email": "sarmad@gmail.com",
     "pin": "22d489a26e5e6a2300c879a3c5bb861cd1cab6203568bc89c64b3f546842234f",
-    "balance": 10019200.0,
+    "balance": 10019400.0,
     "createdAt": "2026-07-10T09:58:37.664986",
     "transactions": [
       {
@@ -50,6 +50,15 @@
         "sender_account": 2235,
         "balance": 10019200.0,
         "date": "2026-07-10T18:24:27.602079"
+      },
+      {
+        "id": "TXN20260731042216418139",
+        "type": "TRANSFER_RECEIVED",
+        "amount": 200.0,
+        "sender": "haider",
+        "sender_account": 4425,
+        "balance": 10019400.0,
+        "date": "2026-07-31T04:22:16.734812"
       }
     ]
   },
