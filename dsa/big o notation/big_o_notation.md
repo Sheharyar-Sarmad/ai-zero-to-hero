@@ -59,9 +59,7 @@ Example
 for i in range(n):
     print(i)
 
-If
-
-n = 5
+If n = 5
 
 Operations
 
