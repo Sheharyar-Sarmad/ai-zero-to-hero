@@ -15,7 +15,7 @@
   - **True Negative (TN)**
   - **False Positive (FP)**
   - **False Negative (FN)**
-  - The confusion comes from thinking the **1s and 0s** on the **top and lef**t are being compared to each other. They are not. Instead, each prediction for each sample is placed into one of the four boxes.
+  - The confusion comes from thinking the **1s and 0s** on the **top and left** are being compared to each other. They are not. Instead, each prediction for each sample is placed into one of the four boxes.
 
 | Person | Actual | Predicted |       Value        |
 | ------ | ------ | --------- | ------------------ |

@@ -19,7 +19,7 @@ Logistic Regression is a **Supervised Machine Learning Algorithm** used for **Cl
 
 # 50% Threshold (Decision Boundary):
 
-- In binary classification, a probability of 50% (0.5) is commonly used as the cutoff point. If the predicted probability is greater than or equal to 50%, the sample is classified as the positive class; if it is less than 50%, it is classified as the negative class.
+- In binary classification, a probability of 50% (0.5) is commonly used as the cutoff point. If the predicted probability is greater than or equal to 50%, the sample is classified as the positive class, if it is less than 50%, it is classified as the negative class.
 
 Example:
 
