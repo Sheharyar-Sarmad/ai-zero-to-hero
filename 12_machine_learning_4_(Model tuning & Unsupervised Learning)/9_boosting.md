@@ -32,7 +32,9 @@ Model 1: gets 70% correct.
 Model 2: focuses more on the examples Model 1 got wrong.
 Model 3: focuses on the remaining difficult examples.
 All models are combined to produce the final prediction.
-Key Idea
+
+## Key Idea
+
 Weak Model
     ↓
 Correct Errors
