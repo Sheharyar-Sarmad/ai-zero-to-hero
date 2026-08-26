@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3b4f3734-9dae-4dd7-9aa5-bf393c5681e1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/1_intro.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2_pydantic.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_fastapi_templates.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pydantic_basic_example.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../10_machine_learning_2_(Regression algorithms)/charges_predictor_model_project" beforeDir="false" afterPath="$PROJECT_DIR$/../10_machine_learning_2_(Regression algorithms)/charges_predictor_model_project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../11_machine_learning_3_(Classification algorithms)/projects/2_titanic_survival_model(logistic_regression)" beforeDir="false" afterPath="$PROJECT_DIR$/../11_machine_learning_3_(Classification algorithms)/projects/2_titanic_survival_model(logistic_regression)" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../11_machine_learning_3_(Classification algorithms)/projects/3_heart_disease(multiple_models)" beforeDir="false" afterPath="$PROJECT_DIR$/../11_machine_learning_3_(Classification algorithms)/projects/3_heart_disease(multiple_models)" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/1_model_turning.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/2_cross_validation.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/3_hyperparameter _tuning.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/4_gird_search_cv.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/5_random_search_cv.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/6_ensemble_learning.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/7_stacking.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/8_bagging.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/9_boosting.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/Advancestuff.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/notebooks/1_GridSearchCV.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/notebooks/2_RandomSearchCV.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../12_machine_learning_4_(Model tuning &amp; Unsupervised Learning)/notebooks/3_Stack.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2_python_advance/Projects/bank_project" beforeDir="false" afterPath="$PROJECT_DIR$/../2_python_advance/Projects/bank_project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2_python_advance/Projects/chrome_dinasour_game_clone" beforeDir="false" afterPath="$PROJECT_DIR$/../2_python_advance/Projects/chrome_dinasour_game_clone" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../9_machine_learning_1_(Making data ready for ml)/charges_predictor_model_project" beforeDir="false" afterPath="$PROJECT_DIR$/../9_machine_learning_1_(Making data ready for ml)/charges_predictor_model_project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../9_machine_learning_1_(Making data ready for ml)/practice" beforeDir="false" afterPath="$PROJECT_DIR$/../9_machine_learning_1_(Making data ready for ml)/practice" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3I6DU0nWMLPk3NqKBYUc6AyMMFl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.main.executor": "Run",
+    "Python.pydantic_basic_example.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-50341a9f1f9c-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.26222.68" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3b4f3734-9dae-4dd7-9aa5-bf393c5681e1" name="Changes" comment="" />
+      <created>1787076140932</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1787076140932</updated>
+      <workItem from="1787076145162" duration="10000" />
+      <workItem from="1787076183548" duration="53000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
