@@ -395,7 +395,6 @@ Example:
 
 Then we plot:
 
-```text
 WCSS
  │
  │ ●
@@ -417,9 +416,7 @@ WCSS
 
 The graph of:
 
-```text
 K vs WCSS
-```
 
 is called the **Elbow Curve**.
 
@@ -427,36 +424,28 @@ As K increases, WCSS decreases because we're adding more centroids.
 
 For example:
 
-```text
 K = 1 → WCSS = 1000
 K = 2 → WCSS = 600
 K = 3 → WCSS = 350
 K = 4 → WCSS = 300
 K = 5 → WCSS = 270
-```
 
 Notice the improvement:
 
-```text
 1 → 2   huge improvement
 2 → 3   huge improvement
 3 → 4   small improvement
 4 → 5   small improvement
-```
 
 The point where the improvement starts becoming much smaller is the **elbow**.
 
 If the elbow is around:
 
-```text
 K = 3
-```
 
 we may choose:
 
-```text
 K = 3
-```
 
 ---
 
