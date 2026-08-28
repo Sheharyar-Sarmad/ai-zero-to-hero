@@ -1,0 +1,5 @@
+.idea
+.venv
+.py_chache
+.ipynb_checkpoints
+.env
