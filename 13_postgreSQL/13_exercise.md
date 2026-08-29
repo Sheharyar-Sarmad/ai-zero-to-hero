@@ -1,80 +1,81 @@
-Task 1:
 
-output: 1:Raj:Sharma:IT
-query: 
+## Task 1:
 
-SELECT CONCAT_WS(':' , emp_id , fname , lname , dept)
-FROM employees
-WHERE fname = 'Raj';
+## output: 1:Raj:Sharma:IT
+## query: 
 
-Task 2:
+**SELECT CONCAT_WS(':' , emp_id , fname , lname , dept)**
+**FROM employees**
+**WHERE fname = 'Raj';**
 
-output: 1:Raj Sharma:IT:50000
-query: 
+## Task 2:
 
-SELECT CONCAT_WS(':' , emp_id , CONCAT_WS(' ',fname,lname) , dept , salary)
-FROM employees
-WHERE emp_id = 1;
+## output: 1:Raj Sharma:IT:50000
+## query: 
 
-Task 3:
+**SELECT CONCAT_WS(':' , emp_id , CONCAT_WS(' ',fname,lname) , dept , salary)**
+**FROM employees**
+**WHERE emp_id = 1;**
 
-output: 4:Suman:FINANCE
-query:
+## Task 3:
 
-SELECT CONCAT_WS(':',emp_id,fname,UPPER(dept))
-FROM employees
-WHERE fname = 'Suman';
+## output: 4:Suman:FINANCE
+## query:
 
-TASK 4:
+**SELECT CONCAT_WS(':',emp_id,fname,UPPER(dept))**
+**FROM employees**
+**WHERE fname = 'Suman';**
 
-output: I1 Raju 
-        H2 Priya
-query: 
+## TASK 4:
 
-SELECT CONCAT_WS(' ' , CONCAT(LEFT(dept,1) , emp_id) , fname)
-FROM employees
-WHERE fname IN ('Raj','Priya');
+## output: I1 Raju 
+## H2 Priya
+## query: 
 
-TASK 5:
+**SELECT CONCAT_WS(' ' , CONCAT(LEFT(dept,1) , emp_id) , fname)**
+**FROM employees**
+**WHERE fname IN ('Raj','Priya');**
 
-Find different types of departments in database.
+## TASK 5:
 
-query:
+## Find different types of departments in database.
 
-SELECT dept,COUNT(dept) 
-FROM employees
-GROUP BY dept;
+## query:
 
-TASK 6:
+**SELECT dept,COUNT(dept)**
+**FROM employees**
+**GROUP BY dept;**
 
-Display records with high and low salary.
+## TASK 6:
 
-query:
+## Display records with high and low salary.
 
-SELECT MAX(salary) , MIN(salary) FROM employees;
+## query:
 
-TASK 7:
+**SELECT MAX(salary) , MIN(salary) FROM employees;**
 
-How to see only top three records in the table
+## TASK 7:
 
-query:
+## How to see only top three records in the table
 
-SELECT * FROM employees LIMIT 3;
+## query:
 
-TASK 8 :
+**SELECT * FROM employees LIMIT 3;**
 
-Show records where name starts with 'A'
+## TASK 8 :
 
-query:
+## Show records where name starts with 'A'
 
-SELECT * FROM employees  
-WHERE fname LIKE 'A%';
+## query:
 
-TASK 9 :
+**SELECT * FROM employees**
+**WHERE fname LIKE 'A%';**
 
-Show the records of the data where the length of lname is 4.
+## TASK 9 :
 
-query:
+## Show the records of the data where the length of lname is 4.
 
-SELECT * FROM employees
-WHERE LENGTH(lname) = 4;
+## query:
+
+**SELECT * FROM employees**
+**WHERE LENGTH(lname) = 4;**

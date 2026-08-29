@@ -1,6 +1,6 @@
 
 
-WHAT IS A DATABASE: 
+## WHAT IS A DATABASE: 
 
-An organised collection of data. 
-A methed to organize , manipulate and access data.
+**An organised collection of data. 
+A methed to organize , manipulate and access data.**
