@@ -50,3 +50,7 @@
     -- Prevent duplicate enrollments
     **UNIQUE(student_id, course_id)**
 **);**
+
+# Final Verdict :
+
+> Go to /projects/institute and complete the project after it
