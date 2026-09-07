@@ -1,4 +1,6 @@
-# Backpropagation — Concise Notes
+
+
+# Backpropagation 
 
 ## 1. Why Backpropagation?
 A network starts with random weights that produce poor predictions. Training repeatedly adjusts these weights so predictions get better over time. Backpropagation is the step that figures out *how* each weight should change to reduce the error.
@@ -148,4 +150,29 @@ New prediction: $\hat{y} = (0.32)(2) = 0.64$ — closer to the target of 1.0. Th
 ## 13. Batch, Iteration & Epoch
 - **Batch** — a subset of the training data processed together in one step.
 - **Iteration / Step** — one full cycle of forward pass → loss → backward pass → optimizer update, done on one batch.
-- **Epoch** — one complete pass through the *entire* training dataset (may consist
+- **Epoch** — one complete pass through the *entire* training dataset (may consist of many iterations).
+
+**Example:** 1000 samples, batch size 100 → 1000/100 = 10 iterations per epoch, so 1 epoch = 10 forward passes + 10 backward passes + 10 updates. (If the whole dataset were one batch, 1 epoch = just 1 of each.)
+
+## 14. Complete Training Cycle
+```
+Input → Forward Propagation → Prediction → Loss → Backpropagation
+→ Gradients → Optimizer → Updated Weights → Next Batch
+→ Next Iteration → Next Epoch → Repeat
+```
+
+## 15. Core Mental Model
+| Stage | Question it answers |
+|---|---|
+| Forward Propagation | What does the network predict? |
+| Loss | How wrong is that prediction? |
+| Backpropagation | How does the loss depend on each parameter? |
+| Gradient | Which direction should each parameter move? |
+| Learning Rate | How large should that move be? |
+| Optimizer | How should the gradient actually be applied? |
+| Updated Weights | Make the next, hopefully better, prediction |
+
+**Final goal:** find the parameters that minimize the loss.
+
+**In one line:**
+`Forward → Loss → Backprop → Gradients → Optimizer → Updated Weights → Repeat`
