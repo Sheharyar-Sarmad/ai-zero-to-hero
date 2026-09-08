@@ -2,8 +2,6 @@
 
 
 
-
-
 ## Vanishing Gradient 
 
 # What is the Vanishing Gradient Problem?
