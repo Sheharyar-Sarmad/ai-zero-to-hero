@@ -17,7 +17,7 @@ def main( ):
     # The finally blocks code always runs no matter what , if the try runs or not if the except runs or not if the else runs or not , it breaks all the rules and run on its own without any hesitation.
     finally :
         print("Hey i am inside of finally")
-        return 
+         
 
 
 
