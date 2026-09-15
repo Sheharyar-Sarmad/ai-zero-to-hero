@@ -91,7 +91,7 @@ LSTM isn't perfect. A few downsides:
 - Slower to train — it has more parameters than a plain RNN (because of all those gates)
 - Can still struggle with VERY long sequences (think hundreds of steps)
 - More complex to implement and debug — more moving parts
-- Modern Transformers often outperform LSTM on many tasks (more on that in a later module 👀)
+- Modern Transformers often outperform LSTM on many tasks (more on that in a later module)
 
 ---
 
@@ -103,4 +103,4 @@ LSTM isn't perfect. A few downsides:
 - This lets gradients flow farther back and lets memory survive
 - Result: better at long sequences — at the cost of more compute
 
-Next up: we crack open the LSTM and look at each gate in detail. 🔍
+Next up: we crack open the LSTM and look at each gate in detail.
