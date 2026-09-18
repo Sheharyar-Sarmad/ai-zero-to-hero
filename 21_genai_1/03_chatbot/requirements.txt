@@ -1,0 +1,30 @@
+# Core LangChain
+langchain
+langchain-community
+langchain-core
+
+
+# LangChain Provider Integrations
+# Each of these lets LangChain talk to a different model provider
+langchain-openai          # OpenAI     (GPT-4o, GPT-4o-mini, etc.)
+langchain-groq            # Groq       (openai/gpt-oss-120b — free & fast)
+langchain-google-genai    # Gemini     (gemini-3.6-flash, etc.)
+langchain-mistralai       # Mistral    (mistral-small-latest, etc.)
+langchain-huggingface     # HuggingFace (local + serverless inference)
+
+
+# Local Model Runtime
+# Required by HuggingFacePipeline to run models locally on CPU/GPU
+transformers              # Loads Hugging Face models
+torch                     # PyTorch ML engine (~2.5 GB on Windows)
+accelerate                # Efficient model loading across CPU/GPU
+sentence-transformers     # Embeddings (text -> vectors) for RAG pipelines
+
+
+# Chatbot UI
+# Streamlit gives you a web UI in pure Python (no HTML/CSS/JS)
+streamlit                 # Interactive web apps in Python
+
+
+# Environment Variables
+python-dotenv             # Loads .env files into os.environ
