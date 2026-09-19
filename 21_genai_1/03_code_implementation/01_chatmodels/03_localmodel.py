@@ -11,11 +11,17 @@
 
 # Load Environment Variables 
 # Not strictly needed for local models, but useful if you later add API keys.
+# Import load_dotenv to read environment variables from a .env file
 from dotenv import load_dotenv
+
+# Load environment variables from the .env file
 load_dotenv()
 
 # Imports 
+# Import ChatHuggingFace and HuggingFacePipeline from langchain_huggingface
 from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline
+
+# Import AIMessage to type hint the model's response
 from langchain_core.messages import AIMessage
 
 # === Load the Model Into a Pipeline ===
@@ -27,12 +33,18 @@ from langchain_core.messages import AIMessage
 # - task              : what the pipeline should do (text-generation here)
 # - pipeline_kwargs   : extra arguments passed to transformers.pipeline()
 llm: HuggingFacePipeline = HuggingFacePipeline.from_model_id(
-    model_id="TinyLlama/TinyLlama-1.1B-Chat-v1.0",   # Small 1.1B model — runs on CPU
-    task="text-generation",                           # Task type
+    # Small 1.1B model — runs on CPU
+    model_id="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    # Task type
+    task="text-generation",
+    # Extra arguments passed to transformers.pipeline()
     pipeline_kwargs={
-        "max_new_tokens": 512,          # Maximum tokens to generate per response
-        "do_sample": False,             # Deterministic output (no randomness)
-        "repetition_penalty": 1.03,     # Slightly discourage repeating the same words
+        # Maximum tokens to generate per response
+        "max_new_tokens": 512,
+        # Deterministic output (no randomness)
+        "do_sample": False,
+        # Slightly discourage repeating the same words
+        "repetition_penalty": 1.03,
     },
 )
 

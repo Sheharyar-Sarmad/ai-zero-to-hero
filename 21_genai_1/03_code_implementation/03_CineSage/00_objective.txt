@@ -1,0 +1,37 @@
+
+
+PROJECT OBJECTIVE: CINESAGE ANALYTICS AI TOOL
+
+1. COMPANY OVERVIEW
+--------------------------------------------------------------------
+CineSage Analytics is a media intelligence company that helps 
+streaming platforms and production houses organize and analyze 
+large volumes of movie data.
+
+2. INCOMING DATA SOURCES
+--------------------------------------------------------------------
+Every day, the company receives the following types of data:
+- Movie descriptions
+- Press releases
+- Blog articles
+- Review summaries
+- Metadata from multiple sources
+
+3. PROBLEM STATEMENT
+--------------------------------------------------------------------
+Streaming platforms require structured movie metadata, yet most 
+incoming data arrives as messy paragraphs. Extracting it manually 
+is:
+- Time-consuming
+- Expensive
+- Error-prone
+- Difficult to scale
+
+4. PROJECT GOAL
+--------------------------------------------------------------------
+CineSage wants to build an AI-powered tool that:
+1. Takes a raw paragraph about a movie
+2. Extracts important structured information
+3. Generates a clean summary
+4. Returns it in JSON format
+5. Stores it in their database

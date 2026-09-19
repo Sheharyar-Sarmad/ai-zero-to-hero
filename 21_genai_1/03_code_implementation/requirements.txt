@@ -21,6 +21,15 @@ accelerate                # Efficient model loading across CPU/GPU
 sentence-transformers     # Embeddings (text -> vectors) for RAG pipelines
 
 
+# Data Validation & Structured Output
+# Pydantic is the backbone of LangChain's structured output feature.
+# We use it to define the exact JSON schema we want back from the LLM
+# (e.g., Movie, Summary) and to validate that the model's
+# response matches it. If the model returns bad data, Pydantic raises
+# an error instead of silently passing garbage downstream.
+pydantic                  # Data validation + JSON schema + typed models
+
+
 # Chatbot UI
 # Streamlit gives you a web UI in pure Python (no HTML/CSS/JS)
 streamlit                 # Interactive web apps in Python

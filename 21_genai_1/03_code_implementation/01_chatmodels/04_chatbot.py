@@ -12,28 +12,42 @@
 #     GROQ_API_KEY=your_key_here
 
 # Imports — Standard Library
+# Import os module for environment variable access
 import os
+# Import time module to measure response latency
 import time
+# Import base64 module to encode SVG icons as data URIs
 import base64
+# Import datetime to timestamp exported chat files
 from datetime import datetime
 
 # Imports — Third Party
+# Import load_dotenv to read environment variables from a .env file
 from dotenv import load_dotenv
 
+# Import streamlit for building the web UI
 import streamlit as st
+# Import ChatGroq to connect to Groq's chat models
 from langchain_groq import ChatGroq
+# Import the base chat model class for type hinting
 from langchain_core.language_models import BaseChatModel
+# Import message types used to structure the conversation
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 
 # Environment
+# Load environment variables from the .env file into os.environ
 load_dotenv()
 
 
 # CONSTANTS
+# Title shown in the browser tab and header
 APP_TITLE = "Groq Chatbot"
+# Short tagline displayed beneath the title
 APP_TAGLINE = "Fast, free, and open-weight LLMs — served instantly by Groq"
+# Default persona used if the user does not override it
 DEFAULT_SYSTEM_PROMPT = "You are a helpful, friendly, and concise assistant."
 
+# Mapping of model IDs to human-friendly labels shown in the sidebar
 MODEL_OPTIONS = {
     "openai/gpt-oss-120b": "GPT-OSS 120B — Best quality",
     "openai/gpt-oss-20b": "GPT-OSS 20B — Fastest",
@@ -42,6 +56,7 @@ MODEL_OPTIONS = {
 }
 
 # Inline SVG icons (no external deps, no emoji)
+# Dictionary holding all SVG icon markup used throughout the UI
 ICONS = {
     "logo": """
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -188,10 +203,12 @@ def svg_to_data_uri(svg: str) -> str:
     return f"data:image/svg+xml;base64,{b64}"
 
 
+# Convert the logo SVG into a data URI so it can be embedded anywhere
 LOGO_URI = svg_to_data_uri(ICONS["logo"])
 
 
 # PAGE CONFIG
+# Configure the Streamlit page title, icon, layout, and sidebar state
 st.set_page_config(
     page_title=APP_TITLE,
     page_icon=LOGO_URI,
@@ -202,6 +219,7 @@ st.set_page_config(
 
 # GLOBAL STYLES — Dark theme only, Inter + JetBrains Mono
 def inject_styles() -> None:
+    # Inject custom CSS into the app to style every component
     st.markdown(
         f"""
         <style>
@@ -597,41 +615,50 @@ def inject_styles() -> None:
     )
 
 
+# Call the style injection function to apply CSS to the app
 inject_styles()
 
 
 # SESSION STATE INIT
 def init_state() -> None:
+    # Set default values for all session state keys used by the app
     defaults = {
         "messages": [SystemMessage(content=DEFAULT_SYSTEM_PROMPT)],
         "model_name": "openai/gpt-oss-120b",
         "temperature": 0.7,
         "system_prompt": DEFAULT_SYSTEM_PROMPT,
     }
+    # Only set each key if it hasn't been set before
     for key, value in defaults.items():
         if key not in st.session_state:
             st.session_state[key] = value
 
 
+# Initialize session state on first run
 init_state()
 
 
 # MODEL LOADER
+# Cache the model instance so it isn't rebuilt on every rerun
 @st.cache_resource(show_spinner=False)
 def load_model(model_name: str, temperature: float) -> BaseChatModel:
     return ChatGroq(model=model_name, temperature=temperature)
 
 
 def get_model() -> BaseChatModel | None:
+    # Return None if the API key is missing so the UI can warn the user
     if not os.getenv("GROQ_API_KEY"):
         return None
+    # Otherwise return the cached model instance
     return load_model(st.session_state.model_name, st.session_state.temperature)
 
 
+# Check whether the API key exists so the UI can reflect connection status
 api_key_present = bool(os.getenv("GROQ_API_KEY"))
 
 
 # HEADER
+# Render the hero header with logo, title, tagline, and status pill
 st.markdown(
     f"""
     <div class="app-header">
@@ -654,6 +681,7 @@ st.markdown(
 
 # SIDEBAR — Controls
 with st.sidebar:
+    # Sidebar header with logo and title
     st.markdown(
         f"""
         <div style="display:flex;align-items:center;gap:10px;
@@ -668,9 +696,11 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
+    # Show an error if the API key is missing
     if not api_key_present:
         st.error("GROQ_API_KEY not found. Add it to your `.env` file.")
 
+    # Section label for the model dropdown
     st.markdown(
         f'<div style="display:flex;align-items:center;gap:8px;'
         f'font-size:0.82rem;font-weight:600;color:var(--text-secondary);'
@@ -678,18 +708,22 @@ with st.sidebar:
         f'{icon("bot", 15)} Model</div>',
         unsafe_allow_html=True,
     )
+    # Let the user pick a model by its human-friendly label
     selected_label = st.selectbox(
         "Model",
         options=list(MODEL_OPTIONS.values()),
         index=list(MODEL_OPTIONS.keys()).index(st.session_state.model_name),
         label_visibility="collapsed",
     )
+    # Translate the selected label back into its model ID
     new_model = [k for k, v in MODEL_OPTIONS.items() if v == selected_label][0]
+    # If the model changed, clear the cache and rerun so it reloads
     if new_model != st.session_state.model_name:
         st.session_state.model_name = new_model
         load_model.clear()
         st.rerun()
 
+    # Slider to adjust the model's temperature
     st.session_state.temperature = st.slider(
         "Temperature",
         min_value=0.0,
@@ -699,33 +733,41 @@ with st.sidebar:
         help="Higher = more creative, lower = more focused.",
     )
 
+    # Expandable section to edit the system prompt
     with st.expander("System Prompt"):
+        # Text area pre-filled with the current system prompt
         new_prompt = st.text_area(
             "Persona / instructions",
             value=st.session_state.system_prompt,
             height=100,
             label_visibility="collapsed",
         )
+        # Apply the new prompt when the user clicks the button
         if st.button("Apply prompt", use_container_width=True):
             st.session_state.system_prompt = new_prompt
             st.session_state.messages[0] = SystemMessage(content=new_prompt)
             st.toast("System prompt updated", icon=":material/check_circle:")
 
+    # Visual separator
     st.divider()
 
+    # Button to wipe the conversation history
     if st.button("Reset chat", use_container_width=True):
         st.session_state.messages = [
             SystemMessage(content=st.session_state.system_prompt)
         ]
         st.rerun()
 
+    # Count non-system messages to show in metrics and export
     chat_count = len(st.session_state.messages) - 1
     if chat_count > 0:
+        # Build a plain-text transcript of the conversation
         export_text = "\n\n".join(
             f"{'You' if isinstance(m, HumanMessage) else 'Assistant'}: {m.content}"
             for m in st.session_state.messages
             if not isinstance(m, SystemMessage)
         )
+        # Download button to export the chat as a text file
         st.download_button(
             "Export chat",
             data=export_text,
@@ -734,19 +776,23 @@ with st.sidebar:
             use_container_width=True,
         )
 
+    # Visual separator
     st.divider()
+    # Small captions summarizing current session info
     st.caption(f"Messages · {chat_count}")
     st.caption(f"Model · `{st.session_state.model_name}`")
     st.caption("Provider · Groq (free tier)")
 
 
 # MAIN — Tabs
+# Create the three main tabs of the app
 tab_chat, tab_settings, tab_about = st.tabs(["Chat", "Settings", "About"])
 
 
 
 # TAB 1 — CHAT
 with tab_chat:
+    # Render every non-system message in the conversation
     for msg in st.session_state.messages:
         if isinstance(msg, SystemMessage):
             continue
@@ -757,46 +803,57 @@ with tab_chat:
             with st.chat_message("assistant", avatar=LOGO_URI):
                 st.write(msg.content)
 
+    # Show a friendly hint when the chat is empty
     if len(st.session_state.messages) == 1:
         st.info("Say hello to get started. Ask anything below.")
 
+    # Text input at the bottom for the user's next message
     user_input: str | None = st.chat_input("Type your message...")
 
     if user_input:
+        # Load the model, or fail early if the API key is missing
         model = get_model()
         if model is None:
             st.error("No GROQ_API_KEY found. Set it in your `.env` file.")
             st.stop()
 
+        # Append the user's message to the conversation history
         st.session_state.messages.append(HumanMessage(content=user_input))
         with st.chat_message("user"):
             st.write(user_input)
 
+        # Stream the assistant's reply token by token
         with st.chat_message("assistant", avatar=LOGO_URI):
             placeholder = st.empty()
             full_response = ""
 
             try:
+                # Track how long the response takes to generate
                 start = time.time()
                 for chunk in model.stream(st.session_state.messages):
                     full_response += chunk.content or ""
+                    # Show the growing response with a blinking cursor
                     placeholder.markdown(
                         full_response + '<span class="cursor-blink"></span>',
                         unsafe_allow_html=True,
                     )
                 elapsed = time.time() - start
 
+                # Replace the streaming placeholder with the final text
                 placeholder.markdown(full_response)
                 st.caption(f"Responded in {elapsed:.2f}s")
 
             except Exception as exc:
+                # Surface any error nicely in the chat bubble
                 full_response = f"Something went wrong: `{exc}`"
                 placeholder.error(full_response)
 
+        # Append the assistant's reply to the conversation history
         st.session_state.messages.append(AIMessage(content=full_response))
 
 # TAB 2 — SETTINGS
 with tab_settings:
+    # Card describing the API connection section
     st.markdown(
         f"""
         <div class="saas-card">
@@ -806,8 +863,10 @@ with tab_settings:
         """,
         unsafe_allow_html=True,
     )
+    # Two-column layout for the key display and connection metric
     col1, col2 = st.columns(2)
     with col1:
+        # Read-only masked API key field
         st.text_input(
             "GROQ_API_KEY",
             value="•" * 12 if api_key_present else "",
@@ -816,11 +875,13 @@ with tab_settings:
             help="Set this in your .env file — not editable here for security.",
         )
     with col2:
+        # Quick glance at whether the key is detected
         st.metric(
             "Connection status",
             "Online" if api_key_present else "Offline",
         )
 
+    # Card describing the model preferences section
     st.markdown(
         f"""
         <div class="saas-card">
@@ -830,15 +891,18 @@ with tab_settings:
         """,
         unsafe_allow_html=True,
     )
+    # Two-column layout for model info and temperature visualization
     c1, c2 = st.columns(2)
     with c1:
         st.write("**Current model**")
         st.code(st.session_state.model_name, language="text")
     with c2:
         st.write("**Temperature**")
+        # Progress bar scaled to the slider's max value
         st.progress(min(st.session_state.temperature / 1.5, 1.0))
         st.caption(f"{st.session_state.temperature:.2f} / 1.50")
 
+    # Card describing the data management section
     st.markdown(
         f"""
         <div class="saas-card">
@@ -848,6 +912,7 @@ with tab_settings:
         """,
         unsafe_allow_html=True,
     )
+    # Two-column layout for clearing the chat and showing message count
     colA, colB = st.columns(2)
     with colA:
         if st.button("Clear conversation", use_container_width=True):
@@ -857,11 +922,13 @@ with tab_settings:
             st.toast("Conversation cleared", icon=":material/delete:")
             st.rerun()
     with colB:
+        # Show how many messages are in the current session
         st.metric("Total messages", len(st.session_state.messages) - 1)
 
 
 # TAB 3 — ABOUT
 with tab_about:
+    # Render informational cards describing the app, stack, and setup
     st.markdown(
         f"""
         <div class="saas-card">

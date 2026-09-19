@@ -1,22 +1,25 @@
-# ============================================================
 # EMBEDDINGS WITH LANGCHAIN — Hugging Face (Free) vs OpenAI (Paid)
-# ============================================================
+
 # Reality check: Groq does NOT support embeddings via LangChain.
 # Use Hugging Face (free, local) or OpenAI (paid).
-# ============================================================
 
+# Import os module for operating system interactions
 import os
+
+# Import load_dotenv to load environment variables from a .env file
 from dotenv import load_dotenv
+
+# Load environment variables from the .env file
 load_dotenv()
 
-
+# Import init_embeddings to initialize embedding models
 from langchain.embeddings import init_embeddings
+
+# Import the base Embeddings class for type hinting
 from langchain_core.embeddings import Embeddings
 
-
-# ============================================================
 # VERSION 1: Hugging Face (FREE — Use This)
-# ============================================================
+
 # Why Hugging Face?
 #   - Free forever (runs locally on your machine)
 #   - Fully supported by LangChain
@@ -31,12 +34,17 @@ from langchain_core.embeddings import Embeddings
 # Why NOT Groq?
 #   - LangChain does not support Groq for embeddings
 #   - Groq is for chat/generation, not embeddings
-# ============================================================
 
+# Print a separator line for visual clarity
 print("=" * 60)
+
+# Print the header for Version 1
 print("VERSION 1: Hugging Face Embeddings (FREE)")
+
+# Print a separator line for visual clarity
 print("=" * 60)
 
+# Initialize the Hugging Face embeddings object
 hf_embeddings: Embeddings = init_embeddings(
     # Small, fast, well-known embedding model
     # 384 dimensions — small enough to run on any laptop
@@ -50,14 +58,17 @@ hf_vector: list[float] = hf_embeddings.embed_query(
     "You are going to learn Gen AI!"
 )
 
+# Print the dimension of the generated vector
 print(f"Hugging Face Vector dimension: {len(hf_vector)}")
+
+# Print the first 5 values of the generated vector
 print(f"Hugging Face First 5 values:   {hf_vector[:5]}")
+
+# Print an empty line for spacing
 print()
 
-
-# ============================================================
 # VERSION 2: OpenAI (PAID — Know It, But Don't Pay For It)
-# ============================================================
+
 # OpenAI is the industry standard for embeddings.
 # You should KNOW how to use it, but you don't need to pay for it.
 #
@@ -67,14 +78,12 @@ print()
 #
 # Cost:
 #   - text-embedding-3-small: $0.02 per 1M tokens
-# ============================================================
 
-print("=" * 60)
+# Print the header for Version 2
 print("VERSION 2: OpenAI Embeddings (PAID — commented out)")
-print("=" * 60)
 
 # Uncomment the lines below ONLY if you have OpenAI credits
-# -----------------------------------------------------------------
+
 # openai_embeddings: Embeddings = init_embeddings(
 #     model="text-embedding-3-small",
 #     provider="openai",
@@ -86,15 +95,15 @@ print("=" * 60)
 #
 # print(f"OpenAI Vector dimension: {len(openai_vector)}")
 # print(f"OpenAI First 5 values:   {openai_vector[:5]}")
-# -----------------------------------------------------------------
 
+# Print a note about the commented out OpenAI code
 print("(OpenAI code is commented out — uncomment only if you have credits)")
+
+# Print an empty line for spacing
 print()
 
 
-# ============================================================
 # THE UNIVERSAL PATTERN (Memorize This)
-# ============================================================
 # Whether you use Hugging Face, OpenAI, Mistral, or Ollama,
 # the pattern is ALWAYS the same:
 #
@@ -111,12 +120,9 @@ print()
 # | Ollama        | nomic-embed-text                          | Free     |
 # | Google Gemini | models/embedding-001                      | Free tier|
 # | Cohere        | embed-english-v3.0                        | Free tier|
-# ============================================================
 
 
-# ============================================================
 # WHAT IS AN EMBEDDING, ANYWAY?
-# ============================================================
 # An embedding is a list of floating-point numbers that represents
 # the "meaning" of a piece of text.
 #
@@ -134,4 +140,3 @@ print()
 #   4. Feed those chunks + the question to the LLM → it answers
 #
 # Embeddings are the "search engine" of AI systems.
-# ============================================================

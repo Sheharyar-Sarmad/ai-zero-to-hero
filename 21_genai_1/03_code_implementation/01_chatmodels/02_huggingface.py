@@ -10,12 +10,20 @@
 #     HUGGINGFACEHUB_ACCESS_TOKEN=hf_...
 
 # Load Environment Variables 
+# Import os module for reading environment variables
 import os
+
+# Import load_dotenv to load environment variables from a .env file
 from dotenv import load_dotenv
-load_dotenv()  # Reads .env and loads HUGGINGFACEHUB_ACCESS_TOKEN into os.environ
+
+# Reads .env and loads HUGGINGFACEHUB_ACCESS_TOKEN into os.environ
+load_dotenv()
 
 # Imports 
+# Import ChatHuggingFace and HuggingFaceEndpoint from langchain_huggingface
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+
+# Import AIMessage to type hint the model's response
 from langchain_core.messages import AIMessage
 
 # Configure the Hugging Face Endpoint 
@@ -23,9 +31,12 @@ from langchain_core.messages import AIMessage
 # It knows HOW to send requests to Hugging Face's servers,
 # but it doesn't natively support chat-style messages.
 llm: HuggingFaceEndpoint = HuggingFaceEndpoint(
-    repo_id="deepseek-ai/DeepSeek-R1",                          # Model ID on Hugging Face Hub
-    task="text-generation",                                     # Required: the model's task type
-    huggingfacehub_api_token=os.environ.get("HUGGINGFACEHUB_ACCESS_TOKEN"),  # Auth token from .env
+    # Model ID on Hugging Face Hub
+    repo_id="deepseek-ai/DeepSeek-R1",
+    # Required: the model's task type
+    task="text-generation",
+    # Auth token from .env
+    huggingfacehub_api_token=os.environ.get("HUGGINGFACEHUB_ACCESS_TOKEN"),
 )
 
 # Wrap It in a Chat Interface 
@@ -33,6 +44,7 @@ llm: HuggingFaceEndpoint = HuggingFaceEndpoint(
 # It converts chat-style messages (system/user/assistant) into whatever
 # format the underlying HuggingFaceEndpoint expects.
 model: ChatHuggingFace = ChatHuggingFace(
+    # Pass the low-level endpoint into the chat wrapper
     llm=llm,
 )
 
