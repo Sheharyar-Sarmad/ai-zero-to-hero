@@ -1,0 +1,8 @@
+.env
+.venv
+src
+.dist
+.vscode
+__pycache__
+.env.local
+.env.production

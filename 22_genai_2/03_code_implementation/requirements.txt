@@ -1,0 +1,73 @@
+# ============================================
+# RAG Backend - Core
+# ============================================
+
+# Environment variables
+python-dotenv
+
+# API backend
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+
+# ============================================
+# LangChain
+# ============================================
+
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+
+# Mistral integration
+langchain-mistralai
+
+# Groq integration
+langchain-groq
+
+# ============================================
+# Vector Database
+# ============================================
+
+chromadb
+langchain-chroma
+
+# ============================================
+# Embeddings
+# ============================================
+
+sentence-transformers
+
+# ============================================
+# Document Loaders
+# ============================================
+
+pypdf
+
+# ============================================
+# HTTP / API
+# ============================================
+
+httpx
+requests
+
+# ============================================
+# Data Processing
+# ============================================
+
+numpy
+pandas
+
+# ============================================
+# Tokenization
+# ============================================
+
+tiktoken
+
+# ============================================
+# Production / Utility
+# ============================================
+
+tenacity
+typing-extensions
