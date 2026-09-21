@@ -10,6 +10,7 @@ fastapi
 uvicorn[standard]
 pydantic
 pydantic-settings
+python-multipart
 
 # ============================================
 # LangChain
@@ -20,10 +21,8 @@ langchain-core
 langchain-community
 langchain-text-splitters
 
-# Mistral integration
+# LLM Integrations
 langchain-mistralai
-
-# Groq integration
 langchain-groq
 
 # ============================================
@@ -34,16 +33,21 @@ chromadb
 langchain-chroma
 
 # ============================================
-# Embeddings
+# Embeddings (Local)
 # ============================================
 
 sentence-transformers
+langchain-huggingface
 
 # ============================================
 # Document Loaders
 # ============================================
 
 pypdf
+beautifulsoup4
+unstructured
+python-docx
+openpyxl
 
 # ============================================
 # HTTP / API
