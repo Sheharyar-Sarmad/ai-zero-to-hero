@@ -54,6 +54,8 @@ openpyxl
 # ============================================
 
 langchain_text_splitters 
+langchain_huggingface
+langchain_experimental
 
 # ============================================
 # HTTP / API
