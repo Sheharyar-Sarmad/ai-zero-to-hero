@@ -4,21 +4,8 @@ Welcome to **Part 2** of the *AI Zero to Hero* series! 🚀 This repository is a
 
 Whether you're learning RAG concepts from scratch or looking for a clean reference implementation, this repo walks through every stage of the pipeline in a structured, modular way. 📚
 
-🔗 **Live Demo:** [Streamlit App](https://your-app-name.streamlit.app) *(dummy link — will be updated after deployment)*
-
-## 📁 Module Structure
-
-```
-22_genai_2/
-├── 01_doc_loader/
-├── 02_text_splitters/
-├── 03_vector_db/
-├── 04_retrievers/
-├── src/
-├── app.py
-├── create_database.py
-├── main.py
-```
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://docapp-bot-j7v8vovmh8sxbvcsqlnlqr.streamlit.app/)
+[![DocQA Bot Repo](https://img.shields.io/badge/Project_Repo-DocQA_Bot-blue?logo=github)](https://github.com/Sheharyar-Sarmad/Docqa-Bot)
 
 ### 🔹 `01_doc_loader/`
 Contains scripts and notebooks demonstrating how to load documents from multiple sources — **PDFs, plain text files, and web pages** — using LangChain's document loaders. This is the entry point of the RAG pipeline where raw data is ingested.
