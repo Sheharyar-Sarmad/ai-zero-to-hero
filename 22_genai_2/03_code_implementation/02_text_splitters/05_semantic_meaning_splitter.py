@@ -33,7 +33,7 @@ chunks: list[Document] = splitter.split_documents(docs)
 
 # Print each chunk with its length so you can compare against other splitters
 for i, chunk in enumerate(chunks):
-    print(f"--- Chunk {i} ({len(chunk.page_content)} chars) ---")
+    print(f"Chunk {i} ({len(chunk.page_content)} chars)")
     print(chunk.page_content[:200])
     print()
 
