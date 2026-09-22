@@ -1,5 +1,5 @@
 # ============================================
-# RAG Backend - Core
+# RAG Backend 
 # ============================================
 
 # Environment variables
@@ -49,6 +49,8 @@ unstructured
 python-docx
 openpyxl
 
+arxiv
+
 # ============================================
 # Text Splitters
 # ============================================
@@ -56,6 +58,14 @@ openpyxl
 langchain_text_splitters 
 langchain_huggingface
 langchain_experimental
+
+
+# ============================================
+# Retrievers
+# ============================================
+
+arxiv
+
 
 # ============================================
 # HTTP / API
