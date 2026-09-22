@@ -1,34 +1,51 @@
+# Prequisites: This is the basic RAG pipeline project you can learn it after the four modules
+# Which are fundamentals for the RAG then you can come here to combine the workflow 
+# First run the create_database.py in the background once because that will create the db 
+
 from dotenv import load_dotenv
+
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_groq import ChatGroq
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.vectorstores import VectorStoreRetriever
+
 load_dotenv()
 
-from langchain_groq import ChatGroq
-from langchain_core.messages import AIMessage
-from langchain_community.document_loaders import TextLoader # For text loading 
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.documents import Document # just docs variable's type hint 
-from langchain_core.prompt_values import ChatPromptValue # for prompt type hints
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+embedding_model: HuggingFaceEmbeddings = HuggingFaceEmbeddings()
 
-data: TextLoader = TextLoader("01_doc_loader/neural_networks.txt") # Just provide of the file in it 
-docs: list[Document] = data.load()
-
-splitter: RecursiveCharacterTextSplitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,
-    chunk_overlap=100
+vectorstore: Chroma = Chroma(
+    persist_directory="chroma_db",
+    embedding_function=embedding_model
 )
 
-chunks: list[Document] = splitter.split_documents(documents=docs)
-
-template: ChatPromptTemplate = ChatPromptTemplate.from_messages([
-    ("system", "you are an ai that summarizes the text!"),
-    ("human", "{data}")
-])
-
-model: ChatGroq = ChatGroq(
-    model='openai/gpt-oss-120b'
+retriever: VectorStoreRetriever = vectorstore.as_retriever(
+    search_type="mmr",
+    search_kwargs={
+        "k": 4,
+        "fetch_k": 10,
+        "lambda_mult": 0.7
+    }
 )
 
-prompt: ChatPromptValue = template.format_messages(data=chunks[0].page_content) # this docs[0].page_content means i only want to send the page_content nothing else 
+llm: ChatGroq = ChatGroq(model="openai/gpt-oss-120b")
 
-result: AIMessage = model.invoke(prompt)
-print(result.content)
+prompt: ChatPromptTemplate = ChatPromptTemplate.from_messages(
+    [
+        ("system", """You are a helpful AI assistant.
+
+Use ONLY the provided context to answer the question.
+
+If the answer is not present in the context,
+say: "I could not find the answer in the document.
+     """),
+        (
+            "human", """Context: 
+            {context}
+
+            Question:
+            {question}"""
+        )
+    ]
+)
+

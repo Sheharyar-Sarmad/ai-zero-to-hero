@@ -2,6 +2,9 @@
 # This retriever uses an LLM to rewrite the user query into multiple variations,
 # searches for each variant, and combines the results into one ranked list.
 
+from dotenv import load_dotenv
+load_dotenv() # will load all the .env variables
+
 from langchain_core.documents import Document
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -31,7 +34,10 @@ vectorstores: Chroma = Chroma.from_documents(
 # The base retriever is what actually searches the vector store.
 # MultiQueryRetriever only improves the queries that go into it.
 # Default k is 4. If you want more or fewer results, pass search_kwargs={"k": 3}.
-retriever: VectorStoreRetriever = vectorstores.as_retriever()
+retriever: VectorStoreRetriever = vectorstores.as_retriever(
+    search_type="mmr",
+    search_kwargs={"k": 3, "lambda_mult": 0.2}
+)
 
 # The LLM that will generate the query variations.
 # Smaller models are usually enough for this task.
