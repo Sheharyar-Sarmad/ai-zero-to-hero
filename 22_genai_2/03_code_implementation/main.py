@@ -9,6 +9,9 @@ from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.vectorstores import VectorStoreRetriever
+from langchain_core.documents import Document
+from langchain_core.prompt_values import ChatPromptValue
+from langchain_core.messages import AIMessage
 
 load_dotenv()
 
@@ -43,9 +46,36 @@ say: "I could not find the answer in the document.
             "human", """Context: 
             {context}
 
-            Question:
-            {question}"""
+            query:
+            {query}"""
         )
     ]
 )
 
+print("\nRAG app created & working")
+print("press 0 to exit\n")
+
+while True:
+    query: str = input("\nYou: ")
+
+    if query == "":
+        print("\nNo query is provided!")
+        break
+    
+    if query == "0":
+        print("\nExiting the app, Good Bye!\n")
+        break
+
+    docs: list[Document] = retriever.invoke(query)
+
+    context: str = "\n\n".join(
+        [doc.page_content for doc in docs]
+    )
+
+    final_prompt: ChatPromptValue = prompt.invoke({
+        "context": context,
+        "query": query
+    })
+
+    response: AIMessage = llm.invoke(final_prompt)
+    print(f"\nAI: {response.content}")
