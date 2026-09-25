@@ -4,8 +4,8 @@ A complete Retrieval-Augmented Generation system built from the ground up, cover
 
 ## Live Demo
 
-**Try it here:** [PLACEHOLDER - Streamlit app link coming soon]
-
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://docapp-bot-j7v8vovmh8sxbvcsqlnlqr.streamlit.app/)
+[![DocQA Bot Repo](https://img.shields.io/badge/Project_Repo-DocQA_Bot-blue?logo=github)](https://github.com/Sheharyar-Sarmad/Docqa-Bot)
 
 ## What This Project Demonstrates
 

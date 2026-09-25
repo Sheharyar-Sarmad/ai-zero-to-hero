@@ -1,4 +1,4 @@
-# 🛠️ Tools in AI Agents: A Beginner's Guide
+# 🛠️ Tools in AI Agents
 
 An **AI Agent** without tools is like a smart person locked in a room without a phone or internet—they can think and speak, but they can't check today's weather or turn on the lights.
 
