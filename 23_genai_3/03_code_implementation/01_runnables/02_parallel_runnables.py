@@ -52,12 +52,15 @@ long_chain = long_prompt | model | parser
 # Incoming inputs are dispatched concurrently to each branch, returning a combined dictionary
 chain: RunnableParallel = RunnableParallel({
     "short": short_chain,
-    "long": long_chain
+    "detailed": long_chain
 })
 
 # Execute the parallel chain with a single input dictionary
 # Both short_chain and long_chain receive the topic input concurrently
-result: ChainDict = chain.invoke({"topic": "Deep Learning"})
+result: ChainDict = chain.invoke({
+    "short": {"topic": "machine learning"},
+    "detailed": {"topic": "deep learning"}
+})
 
 # Display the output extracted from the short explanation branch
 print("\nShort Answer: \n")
@@ -65,4 +68,4 @@ print(result["short"])
 
 # Display the output extracted from the detailed explanation branch
 print("\nLong Answer: \n")
-print(result["long"])
+print(result["detailed"])
