@@ -1,0 +1,20 @@
+[project]
+name = "03-code-implementation"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Sheharyar-Sarmad", email = "developersheharyar2010@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "langchain-tavily>=0.2.18",
+    "rich>=15.0.0",
+]
+
+[project.scripts]
+03-code-implementation = "03_code_implementation:main"
+
+[build-system]
+requires = ["uv_build>=0.12.16,<0.13.0"]
+build-backend = "uv_build"

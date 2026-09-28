@@ -13,7 +13,7 @@ from langchain_core.runnables import RunnableLambda, RunnableSequence
 
 # Initialize model with active Groq endpoint
 model: ChatGroq = ChatGroq(
-    model="llama-3.3-70b-versatile",
+    model="openai/gpt-oss-120b",
     temperature=1,
     max_tokens=5000,
 )
