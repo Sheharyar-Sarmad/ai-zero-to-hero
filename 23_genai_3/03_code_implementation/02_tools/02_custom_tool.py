@@ -1,72 +1,40 @@
-# Custom LangChain Tool with Caching
-#
-# This example demonstrates how to:
-# 1. Create a custom LangChain tool using @tool
-# 2. Use Python's @lru_cache for caching
-# 3. Add type hints to the tool
-# 4. Provide a docstring for the tool description
-# 5. Invoke the tool using LangChain's .invoke() interface
-# 6. Inspect the tool's metadata
-#
-# This is different from TavilySearch:
-#
-# TavilySearch = pre-built/external tool
-# get_greeting = custom tool created by us
-
-# Used for caching repeated function calls and improving performance.
+# Import lru_cache for performance optimization (caches function results)
 from functools import lru_cache
 
-# @tool converts a normal Python function into a LangChain tool.
+# Import the tool decorator to convert Python functions into AI-usable tools
 from langchain.tools import tool
 
-# Create a Custom LangChain Tool
+# Create a Custom Tool
+# The @tool decorator makes this function recognizable by LangChain.
+# The @lru_cache ensures that if the same name is passed twice, it doesn't recalculate.
+# The docstring is read by the AI so it knows what this tool does and when to use it.
 @tool
 @lru_cache
 def get_greeting(name: str) -> str:
     """
     Generate the greeting message for a user.
     """
-
     return f"Hello {name}, Welcome to an AI world"
 
 # Invoke the Tool
-#
-# .invoke() is the standard LangChain interface for executing
-# a tool.
-#
-# The tool expects an input dictionary whose key matches the
-# function parameter: "name".
-#
-# Input:
-# {"name": "Sheharyar"}
-#
-# Output:
-# "Hello Sheharyar, Welcome to an AI world"
-#
+# .invoke() is the standard LangChain interface for executing a tool manually.
+# The tool expects an input dictionary whose keys match the function parameters.
 result: str = get_greeting.invoke(
     {"name": "Sheharyar"}
 )
 
+# Print the string returned by the tool execution
 print(result)
 
 # Inspect Tool Metadata
-
-# The name assigned to the LangChain tool.
+# Print the name automatically assigned to the LangChain tool (usually the function name)
 print(get_greeting.name)
 
-# The tool description.
-#
-# LangChain uses the function's docstring as the description.
-# This description is especially important when an LLM/agent
-# needs to decide which tool to use.
+# Print the tool description.
+# LangChain extracts this directly from the function's docstring.
+# This description is critical because LLMs read it to decide which tool to trigger.
 print(get_greeting.description)
 
-# The input argument schema generated from the function's
-# type hints.
-#
-# Because our function has:
-#
-# name: str
-#
-# LangChain knows that "name" is a required string argument.
+# Print the input argument schema generated from the function's type hints.
+# LangChain uses the type hints (name: str) to know exactly what data type to enforce.
 print(get_greeting.args)

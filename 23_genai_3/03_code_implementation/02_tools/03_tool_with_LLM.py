@@ -1,82 +1,69 @@
-# LangChain Tool Calling - Custom Tool
-#
-# This example demonstrates:
-#
-# 1. Creating a custom LangChain tool with @tool
-# 2. Using @lru_cache for caching
-# 3. Providing type hints for tool inputs and outputs
-# 4. Initializing a ChatGroq LLM
-# 5. Binding a custom tool to the LLM
-# 6. Invoking the LLM and receiving an AIMessage
-
-# Load environment variables from the .env file.
+# Import load_dotenv to load environment variables from a .env file.
+# This is typically used to load your GROQ_API_KEY securely.
 from dotenv import load_dotenv
 load_dotenv()
 
-# Groq chat model integration.
+# Import the ChatGroq class to interact with Groq's language models.
 from langchain_groq import ChatGroq
 
-# LangChain's @tool decorator for creating custom tools.
+# Import the tool decorator. This tells LangChain that a Python function
+# can be used as a tool by the AI.
 from langchain_core.tools import tool
 
-# Python's built-in LRU cache for caching repeated function calls.
+# Import lru_cache from functools.
+# This caches the results of function calls. If the AI asks for the length
+# of the exact same sentence twice, Python returns the saved answer instantly.
 from functools import lru_cache
 
-# AIMessage is the type returned by llm.invoke().
+# Import AIMessage. This is the specific type of object the AI returns
+# when it replies to a prompt.
 from langchain_core.messages import AIMessage
 
-# Rich provides better formatted terminal output.
+# Import print from the rich library for cleaner, colorized terminal output.
 from rich import print
 
-# Create a Custom Tool
+# Define the custom tool using the @tool decorator.
+# The AI reads the function name, the type hints (text: str), and the docstring
+# to understand exactly what this tool does and when to use it.
 @tool
 @lru_cache
 def get_text_length(text: str) -> int:
     """
     Return the number of characters in the given text.
     """
-
     return len(text)
 
-# Initialize the Groq LLM
+# Initialize the language model using ChatGroq.
+# We set the model name, a temperature of 0.6 (slightly creative but focused),
+# and a maximum token limit for the response.
 llm: ChatGroq = ChatGroq(
-    model="openai/gpt-oss-120b",
+    model="llama3-70b-8192", 
     temperature=0.6,
     max_tokens=500
 )
 
-# Bind the Tool to the LLM
-#
-# bind_tools() makes the custom tool available to the LLM.
-#
-# It does NOT execute get_text_length().
-#
-# Instead, the model receives information about:
-#
-# - Tool name
-# - Tool description
-# - Tool input schema
-#
-# The model can then decide whether it wants to request
-# a tool call.
-#
-llm_with_tool: ChatGroq = llm.bind_tools(
+# Bind the custom tool to the language model.
+# The bind_tools method passes the tool's description to the AI.
+# It does not run the tool. It just gives the AI the instruction manual for it.
+# If the AI thinks it needs the tool, it will reply with a tool call request.
+llm_with_tool = llm.bind_tools(
     [get_text_length]
 )
 
-# Invoke the LLM
-#
-# llm.invoke() returns an AIMessage.
-#
-# Therefore, the correct type hint is:
-
+# Ask the standard, tool-less LLM to count the characters.
+# The AI will try to guess or calculate this internally, which LLMs are bad at.
 result: AIMessage = llm.invoke(
     "How many characters are in the text: Hello my name is Sheharyar?"
 )
 
+# Ask the tool-equipped LLM the exact same question.
+# Because it knows the get_text_length tool exists, it will realize it should
+# use the tool instead of guessing. It will return a tool_calls request.
 result_with_tool: AIMessage = llm_with_tool.invoke(
     "How many characters are in the text: Hello my name is Sheharyar?"
 )
 
-# Print the AI Response
-print(f"{result}\n\n\n{result_with_tool}")
+# Print both results to compare them.
+# The first will be a standard text response.
+# The second will contain a tool_calls list showing the AI's request to use the tool.
+print(f"Result WITHOUT tool:\n{result}\n\n\nResult WITH tool:\n{result_with_tool}")
