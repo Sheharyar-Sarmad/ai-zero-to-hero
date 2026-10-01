@@ -20,27 +20,33 @@ from tavily import TavilyClient
 @tool
 @lru_cache
 def get_weather(city: str) -> str:
-    """Get current weather of a city"""
+    """Get the current weather conditions for a specified city."""
+    raw_key = os.getenv("OPENWEATHER_API_KEY", "")
+    api_key: str = raw_key.strip().strip("'\"")  # Strip spaces and accidental surrounding quotes
+    clean_city: str = city.strip()
 
-    api_key: str | None = os.getenv("OPENWEATHER_API_KEY")
-    url: str = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    if not api_key:
+        return "Error: OpenWeather API key is not configured in environment."
 
-    # Fix: HTTP response object is of type requests.Response
-    response: requests.Response = requests.get(url)
-    data: dict[str, Any] = response.json()
+    # Use https and stripped parameters
+    url: str = f"https://api.openweathermap.org/data/2.5/weather?q={clean_city}&appid={api_key}&units=metric"
 
-    print("\nDEBUG:\n", data)
+    try:
+        response: requests.Response = requests.get(url, timeout=10)
+        data: dict[str, Any] = response.json()
 
-    # Validate response status code from OpenWeather API
-    if str(data.get("cod")) != "200":
-        return f"Error: {data.get('message', 'Could not fetch weather!')}"
+        if str(data.get("cod")) != "200":
+            return f"Error: {data.get('message', 'Could not fetch weather data.')}"
 
-    temp: float = data["main"]["temp"]
-    desc: str = data["weather"][0]["description"]
+        temp: float = data["main"]["temp"]
+        humidity: int = data["main"]["humidity"]
+        desc: str = data["weather"][0]["description"]
+        return f"Weather in {clean_city}: {desc.capitalize()}, {temp}°C, Humidity: {humidity}%"
 
-    return f"Weather in {city}: {desc}, {temp}°C"
-
-
+    except Exception as e:
+        # Mask the error string to prevent API key leaks in the UI
+        return f"Error fetching weather: Unable to connect to OpenWeather service."
+    
 # Initialize Tavily search client for news retrieval
 tavily_client: TavilyClient = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
@@ -93,56 +99,55 @@ llm_with_tools: Runnable[LanguageModelInput, BaseMessage] = llm.bind_tools(
 )
 
 # Main Agent Conversation Loop
-messages: list[BaseMessage] = []
+def main():
+    messages: list[BaseMessage] = []
 
-print("\nCity Intelligence System")
-print("Type 'exit' to quit!\n")
+    print("\nCity Intelligence System")
+    print("Type 'exit' to quit!\n")
 
-while True:
-    # Fix: User input returns a string (str), not a Callable
-    user_input: str = input("\nYou: ")
-
-    if user_input.lower() == "exit":
-        print("\nThank you for using our city intelligence system. Quitting now!\n")
-        break
-
-    # Append user prompt to shared message history
-    messages.append(HumanMessage(user_input))
-
-    # Inner Reasoning / Action Loop (ReAct Step)
     while True:
-        # Pass full conversation history to the LLM
-        result: BaseMessage = llm_with_tools.invoke(messages)
+        user_input: str = input("\nYou: ")
 
-        # Append AI response (which may contain tool execution requests) to conversation history
-        messages.append(result)
-
-        # Check if LLM decided to request tool calls
-        if result.tool_calls:
-            for tool_call in result.tool_calls:
-                tool_name: str = tool_call["name"]
-                tool_args: dict[str, Any] = tool_call["args"]
-
-                # Human-In-The-Loop (HITL) approval step
-                confirm: str = input(f"\nDo you want to call the tool '{tool_name}' with args {tool_args}? (yes/no): ").strip().lower()
-
-                if confirm == "yes":
-                    # Execute tool with extracted arguments
-                    tool_result: str = str(tools[tool_name].invoke(tool_args))
-
-                    # Append successful execution result as ToolMessage
-                    messages.append(ToolMessage(
-                        content=tool_result,
-                        tool_call_id=tool_call["id"]
-                    ))
-                else:
-                    print(f"'{tool_name}' tool execution declined by user.")
-                    # Must append a ToolMessage on rejection so LLM knows execution was cancelled
-                    messages.append(ToolMessage(
-                        content=f"Tool '{tool_name}' execution was declined by user.",
-                        tool_call_id=tool_call["id"]
-                    ))
-        else:
-            # If no tool calls were made, output final answer and exit inner ReAct loop
-            print(f"\nAI: {result.content}")
+        if user_input.lower() == "exit":
+            print("\nThank you for using our city intelligence system. Quitting now!\n")
             break
+
+        messages.append(HumanMessage(user_input))
+
+        while True:
+            result: BaseMessage = llm_with_tools.invoke(messages)
+            messages.append(result)
+
+            if result.tool_calls:
+                for tool_call in result.tool_calls:
+                    tool_name: str = tool_call["name"]
+                    tool_args: dict[str, Any] = tool_call["args"]
+
+                    confirm: str = input(
+                        f"\nDo you want to call the tool '{tool_name}' with args {tool_args}? (yes/no): "
+                    ).strip().lower()
+
+                    if confirm == "yes":
+                        tool_result: str = str(tools[tool_name].invoke(tool_args))
+                        messages.append(ToolMessage(content=tool_result, tool_call_id=tool_call["id"]))
+                    else:
+                        print(f"'{tool_name}' tool execution declined by user.")
+                        messages.append(ToolMessage(
+                            content=f"Tool '{tool_name}' execution was declined by user.",
+                            tool_call_id=tool_call["id"]
+                        ))
+            else:
+                print(f"\nAI: {result.content}")
+                break
+
+
+if __name__ == "__main__":
+    main()
+
+# In the end i will say thats great for learning but in real developement we cant hard code this logic we will use the ReAct framework for the time consuming work
+
+# But this is a great example to learn logic behind the agents and tools in a simple and hard coded way. In real world we will use the ReAct framework to handle the tool calls and reasoning in a more dynamic and scalable manner.
+
+# Our agent is working completely fine and we can see how it is able to call the tools and get the results based on the user input. This is a great example to learn the logic behind the agents and tools in a simple and hard coded way. In real world we will use the ReAct framework to handle the tool calls and reasoning in a more dynamic and scalable manner.
+
+# 
