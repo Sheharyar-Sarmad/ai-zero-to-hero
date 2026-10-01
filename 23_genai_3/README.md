@@ -36,6 +36,7 @@ Welcome to **Part 3** of the Generative AI series! This repository contains conc
 │
 ├── projects/                           # 🚧 IN THE MAKING (Capstone Application)
 │   └── [City Intelligence System]      # Streamlit app using Groq, Tavily & OpenWeather
+|   └── [Multi Threaded AI Research System] # Next js + FastAPI app using Groq, maybe Tabvily or something else
 │
 └── GenAIvideo3.pdf                     # Reference lecture slides & curriculum map
 ```
