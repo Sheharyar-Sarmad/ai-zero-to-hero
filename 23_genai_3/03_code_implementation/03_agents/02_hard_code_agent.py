@@ -144,10 +144,11 @@ def main():
 if __name__ == "__main__":
     main()
 
-# In the end i will say thats great for learning but in real developement we cant hard code this logic we will use the ReAct framework for the time consuming work
+    
+# While hard-coding the agent loop is great for understanding the underlying mechanics, 
+# maintaining and scaling this logic in production becomes extremely difficult. 
+# A single edge case or flaw in loop management can easily break the entire workflow. 
 
-# But this is a great example to learn logic behind the agents and tools in a simple and hard coded way. In real world we will use the ReAct framework to handle the tool calls and reasoning in a more dynamic and scalable manner.
-
-# Our agent is working completely fine and we can see how it is able to call the tools and get the results based on the user input. This is a great example to learn the logic behind the agents and tools in a simple and hard coded way. In real world we will use the ReAct framework to handle the tool calls and reasoning in a more dynamic and scalable manner.
-
-# 
+# In real-world development, we rely on higher-level abstractions like the ReAct framework 
+# and functions like create_react_agent / create_agent to handle reasoning, state, and 
+# tool calls dynamically, safely, and at scale.
