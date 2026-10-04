@@ -2,7 +2,8 @@
 # file to claude and say create the ui for this CLI base code in to streamlit UI.
 # You should also use ai for this kind of workflows
 
-
+import threading
+import time
 import uuid
 from typing import TypedDict
 
@@ -72,6 +73,69 @@ def build_graph(model: str, temperature: float, max_tokens: int):
     return graph.compile(checkpointer=InMemorySaver())
 
 
+# ---------------------------------------------------------------- Rate limiting
+RATE_LIMIT = 3                      # max generations ...
+WINDOW_SECONDS = int(1.5 * 60 * 60)  # ... per 1.5 hours (sliding window)
+
+
+@st.cache_resource
+def get_rate_store() -> dict:
+    """Process-wide store shared by all sessions (survives page refreshes)."""
+    return {"lock": threading.Lock(), "hits": {}}
+
+
+def get_client_id() -> str:
+    """Identify a visitor by IP (works behind proxies); fall back to the browser session."""
+    try:
+        fwd = st.context.headers.get("X-Forwarded-For")
+        if fwd:
+            return fwd.split(",")[0].strip()
+        ip = getattr(st.context, "ip_address", None)
+        if ip:
+            return ip
+    except Exception:
+        pass
+    return "session-" + st.session_state.setdefault("sid", uuid.uuid4().hex)
+
+
+def _recent_hits(client_id: str, now: float) -> list[float]:
+    store = get_rate_store()
+    hits = [t for t in store["hits"].get(client_id, []) if now - t < WINDOW_SECONDS]
+    store["hits"][client_id] = hits
+    return hits
+
+
+def consume_request(client_id: str) -> tuple[bool, int]:
+    """Try to use one request. Returns (allowed, seconds_until_next_slot)."""
+    now = time.time()
+    store = get_rate_store()
+    with store["lock"]:
+        hits = _recent_hits(client_id, now)
+        if len(hits) >= RATE_LIMIT:
+            return False, int(WINDOW_SECONDS - (now - hits[0])) + 1
+        hits.append(now)
+        return True, 0
+
+
+def usage_snapshot(client_id: str) -> tuple[int, int]:
+    """Returns (requests_left, seconds_until_oldest_expires)."""
+    now = time.time()
+    store = get_rate_store()
+    with store["lock"]:
+        hits = _recent_hits(client_id, now)
+        wait = int(WINDOW_SECONDS - (now - hits[0])) + 1 if hits else 0
+        return RATE_LIMIT - len(hits), wait
+
+
+def fmt_duration(seconds: int) -> str:
+    m, s = divmod(max(seconds, 0), 60)
+    h, m = divmod(m, 60)
+    return f"{h}h {m}m" if h else (f"{m}m {s}s" if m else f"{s}s")
+
+
+client_id = get_client_id()
+
+
 STAGES = {
     "editor": ("✏️ Editor", "edited_text", "Edited text"),
     "scriptwriter": ("🎙️ Scriptwriter", "script_text", "Video script"),
@@ -88,6 +152,8 @@ with st.sidebar:
         help="Reasoning models like gpt-oss spend tokens on thinking, so keep this generous.",
     )
     show_steps = st.checkbox("Show intermediate stages", value=True)
+    st.divider()
+    usage_box = st.empty()
     if st.button("🗑️ Clear history", use_container_width=True):
         st.session_state.history = []
         st.rerun()
@@ -106,6 +172,21 @@ raw_input = st.text_area(
 )
 
 run = st.button("🚀 Generate script", type="primary", use_container_width=True)
+
+if run and raw_input.strip():
+    allowed, retry_after = consume_request(client_id)
+    if not allowed:
+        run = False
+        st.error(
+            f"⏳ Limit reached: {RATE_LIMIT} generations per 1.5 hours. "
+            f"Try again in {fmt_duration(retry_after)}."
+        )
+
+left, wait = usage_snapshot(client_id)
+if left > 0:
+    usage_box.info(f"**{left}/{RATE_LIMIT}** generations left in this 1.5h window.")
+else:
+    usage_box.warning(f"No generations left. Next slot in **{fmt_duration(wait)}**.")
 
 if run:
     if not raw_input.strip():
