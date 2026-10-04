@@ -17,3 +17,6 @@ faiss-cpu
 
 # Research & Search Tools
 tavily-python
+
+# For UI purposes
+streamlit 

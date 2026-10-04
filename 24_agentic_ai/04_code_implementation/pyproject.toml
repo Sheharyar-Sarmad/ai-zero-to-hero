@@ -17,6 +17,7 @@ dependencies = [
     "pydantic>=2.13.5",
     "pypdf>=6.19.0",
     "python-dotenv>=1.2.4",
+    "streamlit>=1.65.0",
     "tavily-python>=0.8.4",
 ]
 
