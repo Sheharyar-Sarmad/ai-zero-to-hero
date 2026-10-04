@@ -1,0 +1,19 @@
+# Core LangGraph & LangChain Orchestration
+langgraph
+langchain
+langchain-core
+langchain-community
+
+# LLM Providers (Groq & OpenAI)
+langchain-groq
+
+# Data Validation & Environment
+pydantic
+python-dotenv
+
+# Document Processing & Vector Store (Required for RAG modules)
+pypdf
+faiss-cpu
+
+# Research & Search Tools
+tavily-python
