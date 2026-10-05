@@ -12,11 +12,14 @@ pydantic
 python-dotenv
 
 # Document Processing & Vector Store (Required for RAG modules)
-pypdf
-faiss-cpu
+langchain-text-splitter
+
+# For embedding model for RAG Pipeline
+langchain-huggingface
 
 # Research & Search Tools
 tavily-python
 
 # For UI purposes
 streamlit 
+
