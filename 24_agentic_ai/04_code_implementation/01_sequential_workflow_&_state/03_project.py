@@ -13,15 +13,14 @@ class PipelineState(TypedDict):
     script_text: str 
     final_output: str 
 
-# Time for nodes. Nodes are just the workers for the graph like engineers in a software house
-
+# LLM model initialization
 llm: ChatGroq = ChatGroq(
     model="openai/gpt-oss-20b",
     max_tokens=1024,
     temperature=0.7
 )
 
-# Lets create nodes
+# Time for nodes. Nodes are just the workers for the graph like engineers in a software house
 
 # Stage 1: Editor Node 
 def editor_node(state: PipelineState) -> dict[str, str]:
@@ -29,6 +28,7 @@ def editor_node(state: PipelineState) -> dict[str, str]:
     try:
         print("\n--- [Stage 1] Executing Editor Node ---")
         
+        # Build the prompt for copyediting raw user input
         prompt: str = (
             "You are an expert copyeditor. Clean up the following raw text. "
             "Fix any grammatical errors, spelling mistakes, and smooth out the transitions "
@@ -36,6 +36,7 @@ def editor_node(state: PipelineState) -> dict[str, str]:
             f"Text:\n{state['raw_input']}"
         )
         
+        # Invoke the LLM and clean whitespace from the response content
         response: AIMessage = llm.invoke(prompt)
         return {"edited_text": response.content.strip()}
         
@@ -49,6 +50,7 @@ def scriptwriter_node(state: PipelineState) -> dict[str, str]:
     try:
         print("\n--- [Stage 2] Executing Scriptwriter Node ---")
 
+        # Build prompt to transform edited text into a punchy YouTube hook
         prompt: str = (
             "You are a charismatic YouTube content creator. Take this edited text and transform "
             "it into a highly engaging, punchy, conversational video script hook. Make it sound "
@@ -56,9 +58,8 @@ def scriptwriter_node(state: PipelineState) -> dict[str, str]:
             f"Edited Text:\n{state['edited_text']}"
         )
 
+        # Invoke LLM and strip the output string
         response: AIMessage = llm.invoke(prompt)
-
-        # Fixed: .strip() ensures it returns a clean string instead of a word list (.split())
         return {"script_text": response.content.strip()}
 
     except Exception as err:
@@ -71,6 +72,7 @@ def translator_node(state: PipelineState) -> dict[str, str]:
     try:
         print("\n--- [Stage 3] Executing Roman Hinglish Translator Node ---")
         
+        # Build prompt demanding WhatsApp-style Latin-alphabet Roman Hinglish
         prompt: str = (
             "You are an expert content localizer for a young, tech-savvy audience. Take the following script "
             "and convert it into natural, conversational 'Roman Hinglish' (written strictly in English/Latin alphabets, "
@@ -81,6 +83,7 @@ def translator_node(state: PipelineState) -> dict[str, str]:
             f"Script:\n{state['script_text']}"
         )
         
+        # Invoke LLM and capture final localized text
         response: AIMessage = llm.invoke(prompt)
         return {"final_output": response.content.strip()}
         
@@ -92,10 +95,6 @@ def translator_node(state: PipelineState) -> dict[str, str]:
 # Edges are very important for creating the workflows but it will be simple 
 # Because we are using the sequential workflow and we know that how nodes will be connected 
 # So lets create the edges now! lets go 
-
-# Graph Construction & Orchestration
-# Wire the nodes together into a deterministic, sequential pipeline:
-# START ➔ Editor ➔ Scriptwriter ➔ Roman Hinglish Translator ➔ END
 
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.state import CompiledStateGraph
@@ -120,9 +119,8 @@ graph.add_edge("translator", END)
 app: CompiledStateGraph[PipelineState] = graph.compile(checkpointer=checkpointer)
 
 # Output
-
 print("\nWelcome to our app!\nTransform your raw idea into an engaging Roman Hinglish video script.")
-print("Enter you 'exit' if you want to quite!\n")
+print("Enter 'exit' if you want to quit!\n")
 
 class PipelineInput(TypedDict):
     raw_input: str
@@ -132,8 +130,10 @@ while True:
     pipeline_input: str = input("\nYou: ")
 
     if pipeline_input.lower() == 'exit':
-        print("\nQuiting the app, Thanks for using our app!\n")
+        print("\nQuitting the app, Thanks for using our app!\n")
+        break
 
+    # Execute the graph app with thread configuration tracking
     result: PipelineInput = app.invoke(
         {"raw_input": pipeline_input},
         config={
@@ -144,5 +144,3 @@ while True:
     )
 
     print(f"\nAgent: {result['final_output']}\n")
-    
-
