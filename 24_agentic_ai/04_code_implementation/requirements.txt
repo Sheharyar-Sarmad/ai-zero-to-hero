@@ -19,6 +19,7 @@ sentence-transformers
 
 # For embedding model for RAG Pipeline
 langchain-huggingface
+torchvision
 
 # Research & Search Tools
 tavily-python
