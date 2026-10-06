@@ -13,6 +13,9 @@ python-dotenv
 
 # Document Processing & Vector Store (Required for RAG modules)
 langchain-text-splitter
+faiss-cpu
+pypdf
+sentence-transformers
 
 # For embedding model for RAG Pipeline
 langchain-huggingface
