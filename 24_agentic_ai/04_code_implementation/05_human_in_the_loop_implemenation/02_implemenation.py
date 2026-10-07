@@ -1,4 +1,4 @@
-import uuid
+import os 
 from typing import TypedDict, Annotated, Literal, Any
 from dotenv import load_dotenv
 
@@ -8,35 +8,19 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.runnables import Runnable
-from langchain_core.rate_limiters import InMemoryRateLimiter
-from langchain_core.messages import BaseMessage, AIMessage, HumanMessage, ToolMessage
+from langchain_core.messages import BaseMessage, AIMessage
 from langgraph.checkpoint.memory import MemorySaver
+from langgraph.types import interrupt, Command
 
 load_dotenv()
 
-# Limits
-MAX_ATTEMPTS: int = 3
-MAX_TOOL_CALLS: int = 1
-
-# Rate limiter (~24 requests/min), shared by every Groq call
-rate_limiter = InMemoryRateLimiter(
-    requests_per_second=0.4,
-    check_every_n_seconds=0.1,
-    max_bucket_size=1,
-)
-
-# Tools configuration
 search_tool = TavilySearchResults(max_results=3)
 tools: list[Any] = [search_tool]
 
-# LLMs configuration
 writer_llm: ChatGroq = ChatGroq(
     model="openai/gpt-oss-120b",
     max_tokens=2048,
-    temperature=0.8,
-    rate_limiter=rate_limiter,
-    max_retries=3,
-    timeout=60,
+    temperature=0.8
 )
 
 writer_llm_with_tools: Runnable = writer_llm.bind_tools(tools)
@@ -44,27 +28,21 @@ writer_llm_with_tools: Runnable = writer_llm.bind_tools(tools)
 reviewer_llm: ChatGroq = ChatGroq(
     model="openai/gpt-oss-20b",
     max_tokens=1024,
-    temperature=0.3,
-    rate_limiter=rate_limiter,
-    max_retries=3,
-    timeout=60,
+    temperature=0.3
 )
 
-# Building State
 class State(TypedDict):
-    topic: str
+    topic: str 
     messages: Annotated[list[BaseMessage], add_messages]
-    draft: str
+    draft: str 
     content_feedback: str
     compliance_feedback: str
-    review_feedback: str
+    review_feedback: str 
     content_approved: bool
     compliance_approved: bool
-    is_approved: bool
-    attempts: int
-    tool_calls_used: int
+    is_approved: bool 
+    attempts: int 
 
-# Prompts and Nodes
 WRITER_SYSTEM_PROMPT: str = (
     "You are an expert LinkedIn content writer. Your job is to write "
     "engaging, professional LinkedIn posts about the given topic. "
@@ -78,53 +56,36 @@ WRITER_SYSTEM_PROMPT: str = (
     "engagement. Do not use hashtags."
 )
 
-def writer_node(state: State) -> dict:
-    """Writes (or rewrites) the LinkedIn post. Tavily may be used at most once per run."""
+def writer_node(state: State) -> dict: 
     try:
-        history: list[BaseMessage] = state.get("messages", [])
+        attempts: int = state.get("attempts", 0) + 1
         topic: str = state.get("topic", "")
-        tool_calls_used: int = state.get("tool_calls_used", 0)
-        attempts: int = state.get("attempts", 0)
+        previous_feedback: str = state.get("review_feedback", "")
 
-        new_messages: list[BaseMessage] = []
+        if attempts == 1: 
+            user_message: str = (
+                f"Write a Linkedin post on this topic: {topic}. "
+                f"If you need current info search the web first!"
+            )
+        else: 
+            user_message = (
+                f"Your previous draft on '{topic}' was rejected.\n"
+                f"Here is the reviewer's feedback:\n{previous_feedback}\n\n"
+                f"Write a new, improved draft that fixes every issue mentioned. "
+                f"Do not repeat the same mistake."
+            )
 
-        # Coming back from the tools node = same attempt, don't touch counters
-        returning_from_tool: bool = bool(history) and isinstance(history[-1], ToolMessage)
+        messages = [
+            ("system", WRITER_SYSTEM_PROMPT),
+            ("human", user_message)
+        ]
 
-        if not returning_from_tool:
-            attempts += 1
-            if attempts == 1:
-                new_messages.append(HumanMessage(
-                    content=(
-                        f"Write a LinkedIn post on this topic: {topic}. "
-                        f"If you need current info, search the web first."
-                    )
-                ))
-            else:
-                new_messages.append(HumanMessage(
-                    content=(
-                        f"Your previous draft on '{topic}' was rejected.\n"
-                        f"Reviewer feedback:\n{state.get('review_feedback', '')}\n\n"
-                        f"Write a new, improved draft that fixes every issue. "
-                        f"Do not search again; use the info you already have."
-                    )
-                ))
+        response: AIMessage = writer_llm_with_tools.invoke(messages)
 
-        # Only bind the tool while the budget lasts
-        llm = writer_llm_with_tools if tool_calls_used < MAX_TOOL_CALLS else writer_llm
-
-        # Send the full history so the model sees tool results
-        prompt = [("system", WRITER_SYSTEM_PROMPT), *history, *new_messages]
-        response: AIMessage = llm.invoke(prompt)
-
-        update: dict = {"attempts": attempts}
-
-        if getattr(response, "tool_calls", None):
-            response.tool_calls = response.tool_calls[:1]  # one search only
-            update["tool_calls_used"] = tool_calls_used + 1
-
-        update["messages"] = [*new_messages, response]
-        return update
+        return {
+            "messages": [response],
+            "attempts": attempts
+        }
 
     except Exception as err:
         raise Exception(f"Error coming in writer node due to: {err}")
@@ -132,13 +93,10 @@ def writer_node(state: State) -> dict:
 tool_node: ToolNode = ToolNode(tools)
 
 def extract_draft_node(state: State) -> dict:
-    """After the writer finishes tool calls, pulls the final text out as the draft."""
     try:
         last_message: BaseMessage = state['messages'][-1]
         draft: str = getattr(last_message, 'content', '')
-
         return {"draft": draft}
-
     except Exception as err:
         raise Exception(f"Error coming in extracting draft node due to: {err}")
 
@@ -160,8 +118,7 @@ REVIEWER_SYSTEM_PROMPT = (
 )
 
 def content_reviewer_node(state: State) -> dict:
-    """Parallel reviewer 1: Evaluates content quality, hook, and narrative."""
-    try:
+    try: 
         draft: str = state.get('draft', '')
         prompt: str = f"Review this LinkedIn post draft:\n{draft}\nGive your reviews."
 
@@ -171,18 +128,17 @@ def content_reviewer_node(state: State) -> dict:
 
         review_text: str = response.content.strip()
         is_approved: bool = "APPROVED" in review_text.upper().split("FEEDBACK")[0]
-
+        
         if "FEEDBACK:" in review_text:
             feedback = review_text.split("FEEDBACK:", 1)[1].strip()
         else:
             feedback = review_text
-
+        
         return {
             "content_feedback": f"Content Review: {feedback}",
             "content_approved": is_approved,
         }
-
-    except Exception as err:
+    except Exception as err: 
         raise Exception(f"Error coming in content reviewer node due to: {err}")
 
 COMPLIANCE_SYSTEM_PROMPT = (
@@ -192,7 +148,6 @@ COMPLIANCE_SYSTEM_PROMPT = (
 )
 
 def compliance_reviewer_node(state: State) -> dict:
-    """Parallel reviewer 2: Evaluates structural compliance and rules."""
     try:
         draft: str = state.get('draft', '')
         response: AIMessage = reviewer_llm.invoke(
@@ -201,7 +156,7 @@ def compliance_reviewer_node(state: State) -> dict:
 
         review_text: str = response.content.strip()
         is_approved: bool = "APPROVED" in review_text.upper().split("FEEDBACK")[0]
-
+        
         if "FEEDBACK:" in review_text:
             feedback = review_text.split("FEEDBACK:", 1)[1].strip()
         else:
@@ -211,71 +166,75 @@ def compliance_reviewer_node(state: State) -> dict:
             "compliance_feedback": f"Compliance Review: {feedback}",
             "compliance_approved": is_approved,
         }
-
     except Exception as err:
         raise Exception(f"Error coming in compliance reviewer node due to: {err}")
 
 def aggregate_reviews_node(state: State) -> dict:
-    """Fan-in node: Combines results from parallel reviewer executions."""
     try:
         c_app: bool = state.get("content_approved", False)
         m_app: bool = state.get("compliance_approved", False)
-
+        
         c_fb: str = state.get("content_feedback", "")
         m_fb: str = state.get("compliance_feedback", "")
 
-        overall_approved: bool = c_app and m_app
+        automated_approved: bool = c_app and m_app
         combined_feedback: str = f"{c_fb}\n{m_fb}"
 
-        print(f"[Content Approved: {c_app} | Compliance Approved: {m_app}]")
-        print(f"[Overall Approved: {overall_approved}]")
-        print(f"[Combined Feedback:\n{combined_feedback}\n]")
-
         return {
-            "is_approved": overall_approved,
+            "is_approved": automated_approved,
             "review_feedback": combined_feedback
         }
     except Exception as err:
         raise Exception(f"Error coming in aggregate reviews node due to: {err}")
 
-# Router Functions
-def should_use_tool(state: State) -> str:
+# Human-in-the-Loop Node using the LangGraph interrupt primitive
+def human_review_node(state: State) -> dict:
+    draft: str = state.get("draft", "")
+    feedback: str = state.get("review_feedback", "")
+    
+    # Pauses graph execution and surfaces payload to the CLI user interface
+    human_input = interrupt({
+        "draft": draft,
+        "feedback": feedback,
+        "message": "Review the draft and feedback above. Type 'approve' to accept or provide revision notes:"
+    })
+    
+    if isinstance(human_input, str) and human_input.lower().strip() in ["approve", "yes", "y"]:
+        return {"is_approved": True}
+    else:
+        return {
+            "is_approved": False,
+            "review_feedback": f"Human Override Feedback: {human_input}"
+        }
+
+def should_use_tool(state: State) -> str: 
     last_message: BaseMessage = state['messages'][-1]
-
-    if (
-        getattr(last_message, 'tool_calls', None)
-        and state.get("tool_calls_used", 0) <= MAX_TOOL_CALLS
-    ):
+    tool_calls_count = sum(1 for msg in state.get('messages', []) if getattr(msg, 'tool_calls', None))
+    if getattr(last_message, 'tool_calls', None) and tool_calls_count < 2: 
         return "tools"
-
     return "extract_draft"
 
-def should_stop_looping(state: State) -> Literal["writer", "__end__"]:
-    if state.get('is_approved', False):
-        print("Post has been approved\n")
+def should_stop_looping(state: State) -> Literal["writer", "__end__"]: 
+    if state.get('is_approved', False): 
         return END
 
-    if state.get('attempts', 0) >= MAX_ATTEMPTS:
-        print("Reached max attempts!")
+    if state.get('attempts', 0) >= 3: 
         return END
 
     return "writer"
 
-# Building Graph
 workflow = StateGraph(State)
 
-# Nodes registration
 workflow.add_node("writer", writer_node)
 workflow.add_node("tools", tool_node)
 workflow.add_node("extract_draft", extract_draft_node)
 workflow.add_node("content_reviewer", content_reviewer_node)
 workflow.add_node("compliance_reviewer", compliance_reviewer_node)
 workflow.add_node("aggregate_reviews", aggregate_reviews_node)
+workflow.add_node("human_review", human_review_node)
 
-# Entry point
 workflow.add_edge(START, "writer")
 
-# Inner ReAct tool loop
 workflow.add_conditional_edges(
     "writer",
     should_use_tool,
@@ -286,17 +245,16 @@ workflow.add_conditional_edges(
 )
 workflow.add_edge("tools", "writer")
 
-# Parallel workflow fan-out edges
 workflow.add_edge("extract_draft", "content_reviewer")
 workflow.add_edge("extract_draft", "compliance_reviewer")
 
-# Parallel workflow fan-in edges
 workflow.add_edge("content_reviewer", "aggregate_reviews")
 workflow.add_edge("compliance_reviewer", "aggregate_reviews")
 
-# Outer refinement loop edge
+workflow.add_edge("aggregate_reviews", "human_review")
+
 workflow.add_conditional_edges(
-    "aggregate_reviews",
+    "human_review",
     should_stop_looping,
     {
         "writer": "writer",
@@ -304,13 +262,12 @@ workflow.add_conditional_edges(
     }
 )
 
-# Checkpointer & Compilation
 checkpointer = MemorySaver()
 app = workflow.compile(checkpointer=checkpointer)
 
-# CLI Interface
 if __name__ == "__main__":
-    print("LinkedIn Agentic Engine Initialized")
+    print("LinkedIn Agentic Engine with HITL Initialized")
+    config = {"configurable": {"thread_id": "cli_session_hitl_1"}}
 
     while True:
         topic_input = input("\nEnter post topic (or type 'exit' to stop): ").strip()
@@ -320,12 +277,6 @@ if __name__ == "__main__":
 
         if not topic_input:
             continue
-
-        # Fresh thread per topic so old messages never leak into a new run
-        config = {
-            "configurable": {"thread_id": str(uuid.uuid4())},
-            "recursion_limit": 25,
-        }
 
         initial_state = {
             "topic": topic_input,
@@ -337,15 +288,31 @@ if __name__ == "__main__":
             "content_approved": False,
             "compliance_approved": False,
             "is_approved": False,
-            "attempts": 0,
-            "tool_calls_used": 0,
+            "attempts": 0
         }
 
         print(f"Executing workflow for topic: '{topic_input}'")
 
-        for output in app.stream(initial_state, config=config):
-            for node_name in output.keys():
-                print(f"Executed node: {node_name}")
+        current_input: Any = initial_state
+        while True:
+            has_interrupted = False
+            for output in app.stream(current_input, config=config):
+                if "__interrupt__" in output:
+                    has_interrupted = True
+                    interrupt_payload = output["__interrupt__"][0].value
+                    print("\n--- HUMAN REVIEW REQUIRED ---")
+                    print(f"Draft:\n{interrupt_payload.get('draft')}")
+                    print(f"Feedback:\n{interrupt_payload.get('feedback')}")
+                    
+                    user_decision = input("\nType 'approve' to publish, or type revision instructions: ").strip()
+                    current_input = Command(resume=user_decision)
+                    break
+                else:
+                    for node_name in output.keys():
+                        print(f"Executed node: {node_name}")
+            
+            if not has_interrupted:
+                break
 
         final_state = app.get_state(config)
         final_draft = final_state.values.get("draft", "No draft generated.")
