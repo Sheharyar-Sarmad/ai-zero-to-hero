@@ -23,6 +23,7 @@ torchvision
 
 # Research & Search Tools
 tavily-python
+langchain_tavily
 
 # For UI purposes
 streamlit 
