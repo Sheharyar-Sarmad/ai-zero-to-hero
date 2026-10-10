@@ -1,6 +1,6 @@
 
 
-## elational Operators in postgreSQL:
+## Relational Operators in postgreSQL:
 
 > Relational operators (also called comparison operators) are used to compare values in SQL queries — they're the building blocks of conditions in WHERE clauses!
 
