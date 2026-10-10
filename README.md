@@ -19,7 +19,7 @@ Every module ends with something working — code you can run, a project you can
 
 ---
 
-## 📚 Curriculum — 22 Modules (and counting)
+## 📚 Curriculum — 24 Modules (and counting)
 
 ### 🧱 Foundations (01–06)
 | # | Module | Focus |
@@ -57,11 +57,13 @@ Every module ends with something working — code you can run, a project you can
 | 19 | Deep Learning 3 | Attention, optimization, regularization |
 | 20 | Transformers | Self-attention, BERT, GPT architectures |
 
-### 🤖 GenAI (21–22)
+### 🤖 GenAI & Agentic AI (21–24)
 | # | Module | Focus |
 |---|---|---|
 | 21 | **GenAI Part 1** | Chat models, LangChain, embeddings, structured outputs, **ClipSage capstone** |
-| 22 | **GenAI Part 2** | RAG systems, vector DBs, retrieval pipelines, agents |
+| 22 | **GenAI Part 2** | RAG systems, vector DBs, retrieval pipelines |
+| 23 | **GenAI Part 3** | Advanced GenAI patterns, fine-tuning, evaluation |
+| 24 | **Agentic AI** | Autonomous agents, tool use, multi-agent systems |
 
 ---
 
@@ -104,6 +106,41 @@ ClipSage is a full-stack AI media intelligence app that ingests video, audio, im
 | **Frontend** | Next.js 14, React, Tailwind CSS, Shadcn UI |
 | **DevOps** | Linux, Docker (in progress), Vercel, Render |
 | **Vector / RAG** | Chroma, embeddings, retrieval chains *(Module 22)* |
+| **Agentic AI** | LangGraph, tool calling, multi-agent orchestration *(Module 24)* |
+
+---
+
+## 📂 Repository Structure
+
+```text
+ai-zero-to-hero/
+├── 01_python_basics/
+├── 02_python_advance/
+├── 03_numpy/
+├── 04_pandas/
+├── 05_seaborn_&_matplotlib/
+├── 06_dsa/
+├── 07_statistics/
+├── 08_linear_algebra/
+├── 09_machine_learning_1/
+├── 10_machine_learning_2/
+├── 11_machine_learning_3/
+├── 12_machine_learning_4/
+├── 13_postgreSQL/
+├── 14_linux/
+├── 15_fastapi_overview/
+├── 16_NLP/
+├── 17_deep_learning_1/
+├── 18_deep_learning_2/
+├── 19_deep_learning_3/
+├── 20_transformers/
+├── 21_genai_1/
+├── 22_genai_2/
+├── 23_genai_3/
+├── 24_agentic_ai/
+├── .gitignore
+└── README.md
+```
 
 ---
 
@@ -113,3 +150,60 @@ ClipSage is a full-stack AI media intelligence app that ingests video, audio, im
 ```bash
 git clone https://github.com/Sheharyar-Sarmad/ai-zero-to-hero.git
 cd ai-zero-to-hero
+```
+
+## 🧭 Navigate to a Module
+
+📦 Each module is self-contained with its own code, notebooks, and mini-projects.
+
+```bash
+cd 21_genai_1
+```
+
+## 🚀 Follow Along
+
+- 📖 Read the module README (where available).
+- ▶️ Run the code examples.
+- 📝 Complete the exercises.
+- 🛠️ Build the module project.
+
+## 📅 Track Progress
+
+This repository is updated **daily**! ⭐ Star it, 🍴 fork it, and follow along publicly as the journey progresses.
+
+---
+
+## 📈 Learning Path
+
+```text
+🧱 Foundations → 📐 Math & ML → ⚙️ Backend & Data → 🧠 Deep Learning & NLP → 🤖 GenAI → 🚀 Agentic AI
+     01–06          07–12            13–15                  16–20              21–23        24
+```
+
+🎯 Each stage builds on the previous one. By Module 24, you will have built multiple production-grade AI systems.
+
+---
+
+## 🤝 Contributing
+
+💡 This is a personal learning journey documented publicly. However, if you spot bugs, have suggestions, or want to share useful resources, contributions are welcome!
+
+1. 🍴 Fork the repository.
+2. 🌿 Create a feature branch.
+3. 📤 Submit a pull request.
+
+---
+
+## 📬 Connect
+
+- 💻 **GitHub:** [@Sheharyar-Sarmad](https://github.com/Sheharyar-Sarmad)
+- 🔗 **LinkedIn:** [Connect and follow my daily updates](https://linkedin.com/in/sheharyar-sarmad/)
+- 🌐 **Live Projects:** Explore the ClipSage links above.
+
+---
+
+## ⭐ Support
+
+If this repository helps you, please give it a **star** ⭐ — it keeps the momentum going!
+
+> 🚀 **Learn the fundamentals. Build practical projects. Ship production-level systems. Adapt continuously.**
