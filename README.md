@@ -8,6 +8,18 @@ Unlike traditional courses, this repository is **updated continuously** accordin
 
 ---
 
+## 📰 Latest News
+
+> **📅 October 15, 2026 — System Design Roadmap Complete! ✅**
+>
+> **Module 25 (System Design Foundation)** is live: 46 concepts, 16 sandboxes, and 8 phases, from how a web request travels to designing a URL shortener, a news feed, and YouTube.
+>
+> 🔜 **Up next: DevOps.** After DevOps and Full Stack, the roadmap continues with **Advanced System Design** and **AI System Design**.
+>
+> 🧪 **Also new:** [TestPilot AI](https://github.com/Sheharyar-Sarmad/TestPilot) is now the latest featured project.
+
+---
+
 ## 🌟 Why This Repo
 
 Most AI courses teach theory. This one **ships products.**
@@ -19,7 +31,7 @@ Every module ends with something working — code you can run, a project you can
 
 ---
 
-## 📚 Curriculum — 24 Modules (and counting)
+## 📚 Curriculum — 25 Modules (and counting)
 
 ### 🧱 Foundations (01–06)
 | # | Module | Focus |
@@ -65,11 +77,54 @@ Every module ends with something working — code you can run, a project you can
 | 23 | **GenAI Part 3** | Advanced GenAI patterns, fine-tuning, evaluation |
 | 24 | **Agentic AI** | Autonomous agents, tool use, multi-agent systems |
 
+### 🏗️ System Design (25) 🆕
+| # | Module | Focus |
+|---|---|---|
+| 25 | **[System Design Foundation](./25_systemdesign_foundation)** | Scaling, caching, databases, messaging, reliability, observability, and interview case studies (46 concepts, 16 sandboxes, 8 phases) |
+
 ---
 
 ## 🏆 Project of the Week
 
 Every week, one module culminates in a **deployed, production-ready project.**
+
+### 🧪 TestPilot AI — Latest Project 🆕
+
+> **One file. One fix. Verified.**
+
+TestPilot AI turns a failing test and its code context into a proposed patch, verifies it in an isolated sandbox, and streams the full execution lifecycle back to the developer in real time.
+
+**Workflow:** Input → Diagnose → Generate Fix → Sandbox Verify → Retry or Finalize
+
+**Highlights:**
+- 🔁 **Cyclic LangGraph workflow** with bounded retries and verification feedback
+- 📡 **Live progress via Server-Sent Events (SSE)**
+- 📦 **Redis** for job state (JobStore) and event distribution (Pub/Sub EventBus)
+- 🛡️ **SSRF protection** and isolated sandbox execution for untrusted code
+
+**Stack:**
+- **Backend:** FastAPI, Uvicorn, LangGraph, Redis
+- **Frontend:** Next.js 15, TypeScript, Monaco Editor
+- **AI:** LLM-powered diagnosis and patch generation
+
+**Live Links:**
+- 🌐 **App:** [testpilot-chi.vercel.app](https://testpilot-chi.vercel.app)
+- 🔌 **API:** [testpilot-9bs7.onrender.com](https://testpilot-9bs7.onrender.com)
+- 💻 **Source:** [github.com/Sheharyar-Sarmad/TestPilot](https://github.com/Sheharyar-Sarmad/TestPilot)
+
+```mermaid
+flowchart LR
+    U["👩‍💻 Developer"] --> FE["Next.js 15"]
+    FE -->|"POST /jobs"| API["FastAPI"]
+    API --> R[("Redis")]
+    R --> W["LangGraph Worker"]
+    W --> SB["Isolated Sandbox"]
+    SB --> W
+    W --> R
+    R -.->|"SSE stream"| FE
+```
+
+---
 
 ### 🎬 ClipSage — Featured Project (Module 21 Capstone)
 
@@ -102,11 +157,12 @@ ClipSage is a full-stack AI media intelligence app that ingests video, audio, im
 | **Data Science** | NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn |
 | **Deep Learning** | PyTorch, Hugging Face Transformers |
 | **GenAI / LLM** | LangChain, Groq, OpenAI-compatible APIs, Whisper |
-| **Backend** | FastAPI, Uvicorn, Pydantic, PostgreSQL |
-| **Frontend** | Next.js 14, React, Tailwind CSS, Shadcn UI |
+| **Backend** | FastAPI, Uvicorn, Pydantic, PostgreSQL, Redis |
+| **Frontend** | Next.js, React, Tailwind CSS, Shadcn UI |
+| **System Design** | Load balancing, caching, sharding, replication, queues, rate limiting |
 | **DevOps** | Linux, Docker (in progress), Vercel, Render |
-| **Vector / RAG** | Chroma, embeddings, retrieval chains *(Module 22)* |
-| **Agentic AI** | LangGraph, tool calling, multi-agent orchestration *(Module 24)* |
+| **Vector / RAG** | Chroma, embeddings, retrieval chains |
+| **Agentic AI** | LangGraph, tool calling, multi-agent orchestration |
 
 ---
 
@@ -138,6 +194,7 @@ ai-zero-to-hero/
 ├── 22_genai_2/
 ├── 23_genai_3/
 ├── 24_agentic_ai/
+├── 25_systemdesign_foundation/
 ├── .gitignore
 └── README.md
 ```
@@ -157,7 +214,7 @@ cd ai-zero-to-hero
 📦 Each module is self-contained with its own code, notebooks, and mini-projects.
 
 ```bash
-cd 21_genai_1
+cd 25_systemdesign_foundation
 ```
 
 ## 🚀 Follow Along
@@ -175,12 +232,29 @@ This repository is updated **daily**! ⭐ Star it, 🍴 fork it, and follow alon
 
 ## 📈 Learning Path
 
-```text
-🧱 Foundations → 📐 Math & ML → ⚙️ Backend & Data → 🧠 Deep Learning & NLP → 🤖 GenAI → 🚀 Agentic AI
-     01–06          07–12            13–15                  16–20              21–23        24
+```mermaid
+flowchart LR
+    A["✅ Foundations<br/>01–06"] --> B["✅ Math & ML<br/>07–12"]
+    B --> C["✅ Backend & Data<br/>13–15"]
+    C --> D["✅ DL & NLP<br/>16–20"]
+    D --> E["✅ GenAI<br/>21–23"]
+    E --> F["✅ Agentic AI<br/>24"]
+    F --> G["✅ System Design<br/>25"]
+    G --> H["🔜 DevOps"]
+    H --> I["🔜 Full Stack"]
+    I --> J["🔜 Advanced &<br/>AI System Design"]
 ```
 
-🎯 Each stage builds on the previous one. By Module 24, you will have built multiple production-grade AI systems.
+🎯 Each stage builds on the previous one. By the end, you will have built multiple production-grade AI systems.
+
+---
+
+## 🔭 What's Next
+
+1. 🔜 **DevOps:** containers, CI/CD, deployment, and infrastructure
+2. 🔜 **Full Stack:** end-to-end application engineering
+3. 🔜 **Advanced System Design:** distributed systems and large-scale architectures
+4. 🔜 **AI System Design:** LLM serving, RAG at scale, and ML infrastructure
 
 ---
 
@@ -198,7 +272,7 @@ This repository is updated **daily**! ⭐ Star it, 🍴 fork it, and follow alon
 
 - 💻 **GitHub:** [@Sheharyar-Sarmad](https://github.com/Sheharyar-Sarmad)
 - 🔗 **LinkedIn:** [Connect and follow my daily updates](https://linkedin.com/in/sheharyar-sarmad/)
-- 🌐 **Live Projects:** Explore the ClipSage links above.
+- 🌐 **Live Projects:** Explore the TestPilot and ClipSage links above.
 
 ---
 
