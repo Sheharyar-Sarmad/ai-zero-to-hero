@@ -48,17 +48,17 @@ Every module ends with something working — code you can run, a project you can
 |---|---|---|
 | 07 | Statistics | Descriptive stats, distributions, hypothesis testing |
 | 08 | Linear Algebra | Vectors, matrices, eigenvalues, SVD |
-| 09 | Machine Learning 1 | Regression, gradient descent, model evaluation |
-| 10 | Machine Learning 2 | Classification, SVM, decision trees, ensembles |
-| 11 | Machine Learning 3 | Unsupervised learning, clustering, dimensionality reduction |
-| 12 | Machine Learning 4 | Feature engineering, pipelines, model deployment |
+| 09 | Machine Learning 1 | EDA, data cleaning, preprocessing, feature selection, feature engineering |
+| 10 | Machine Learning 2 | Linear and polynomial regression, gradient descent, cost functions, convergence, MSE, RMSE, R², adjusted R², overfitting, underfitting, regularization |
+| 11 | Machine Learning 3 | Logistic regression, Naive Bayes, KNN, SVM, decision trees, ensemble learning, classification metrics, confusion matrix, ROC-AUC, log loss |
+| 12 | Machine Learning 4 | Hyperparameter tuning, cross-validation, model evaluation, unsupervised learning, clustering, PCA, dimensionality reduction, curse of dimensionality, pipelines, model deployment |
 
 ### 🛠️ Backend & Data Engineering (13–15)
 | # | Module | Focus |
 |---|---|---|
 | 13 | PostgreSQL | Relational modeling, SQL, indexing, transactions |
 | 14 | Linux | Shell, processes, permissions, production tooling |
-| 15 | FastAPI Overview | REST APIs, async endpoints, Pydantic, deployment |
+| 15 | FastAPI Overview | REST APIs, endpoints, Pydantic |
 
 ### 🧠 Deep Learning & NLP (16–20)
 | # | Module | Focus |
