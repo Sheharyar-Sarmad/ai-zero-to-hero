@@ -64,10 +64,10 @@ Every module ends with something working — code you can run, a project you can
 | # | Module | Focus |
 |---|---|---|
 | 16 | NLP | Tokenization, embeddings, classical NLP pipelines |
-| 17 | Deep Learning 1 | Neural networks from scratch, backprop |
-| 18 | Deep Learning 2 | CNNs, RNNs, training at scale |
-| 19 | Deep Learning 3 | Attention, optimization, regularization |
-| 20 | Transformers | Self-attention, BERT, GPT architectures |
+| 17 | Deep Learning 1 | Neural networks from scratch, ANN, frontprop, backprop |
+| 18 | Deep Learning 2 | CNNs, Layers, Edge Direction |
+| 19 | Deep Learning 3 | RNNs, LSTM, GRU, Bidirectional LSTM |
+| 20 | Transformers | Architecture, Self-attention |
 
 ### 🤖 GenAI & Agentic AI (21–24)
 | # | Module | Focus |
