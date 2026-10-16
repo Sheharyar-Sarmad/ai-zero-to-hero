@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="NeuralSpace is your AI-powered workspace for research, writing, and building smarter.">
+  <title>NeuralSpace — Think Beyond the Prompt</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Effects -->
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+
+  <!-- Navigation -->
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a href="#home" class="brand" aria-label="NeuralSpace home">
+        <span class="brand-icon">
+          <span></span><span></span><span></span>
+        </span>
+        <span>neural<span class="brand-light">space</span></span>
+      </a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+      <label for="menu-toggle" class="menu-button" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <div class="nav-menu">
+        <a href="#features">Features</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#workflow">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#testimonials">Reviews</a>
+
+        <div class="mobile-nav-actions">
+          <a href="#pricing" class="button button-secondary">Sign in</a>
+          <a href="#get-started" class="button button-primary">Get started <span>↗</span></a>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <a href="#pricing" class="nav-signin">Sign in</a>
+        <a href="#get-started" class="button button-primary nav-cta">
+          Get started <span>↗</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero container" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span class="status-dot"></span>
+          <span>YOUR NEXT-GEN AI WORKSPACE</span>
+          <span class="eyebrow-arrow">↗</span>
+        </div>
+
+        <h1>
+          Think beyond<br>
+          the <span class="gradient-text">prompt.</span>
+        </h1>
+
+        <p class="hero-description">
+          One intelligent workspace for your ideas, research,
+          and creations. Turn complex thinking into extraordinary work.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#get-started" class="button button-primary button-large">
+            Start building free <span>↗</span>
+          </a>
+          <a href="#features" class="button button-ghost button-large">
+            Explore platform <span class="play-icon">▶</span>
+          </a>
+        </div>
+
+        <div class="hero-proof">
+          <div class="avatar-stack" aria-hidden="true">
+            <span class="avatar avatar-one">A</span>
+            <span class="avatar avatar-two">J</span>
+            <span class="avatar avatar-three">M</span>
+            <span class="avatar avatar-four">S</span>
+          </div>
+          <div>
+            <div class="proof-stars">★★★★★</div>
+            <p><strong>2,400+</strong> curious minds and counting</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orbital Illustration -->
+      <div class="hero-visual" aria-label="Abstract AI neural network illustration">
+        <div class="visual-glow"></div>
+        <div class="orbit orbit-outer"></div>
+        <div class="orbit orbit-middle"></div>
+        <div class="orbit orbit-inner"></div>
+
+        <div class="orbit-node node-top">
+          <span>✳</span>
+        </div>
+        <div class="orbit-node node-left">
+          <span>⌘</span>
+        </div>
+        <div class="orbit-node node-right">
+          <span>⌁</span>
+        </div>
+        <div class="orbit-node node-bottom">
+          <span>✧</span>
+        </div>
+
+        <div class="orbit-center">
+          <div class="center-core">
+            <span class="core-symbol">N</span>
+            <span class="core-ring"></span>
+          </div>
+          <span class="center-label">NEURAL CORE</span>
+          <span class="center-status"><span></span> SYSTEM ONLINE</span>
+        </div>
+
+        <div class="floating-card card-insight">
+          <span class="mini-icon cyan-icon">✦</span>
+          <div>
+            <strong>Insight generated</strong>
+            <small>Patterns discovered · 2.4s</small>
+          </div>
+        </div>
+
+        <div class="floating-card card-processing">
+          <span class="processing-icon">◉</span>
+          <div>
+            <strong>Processing ideas</strong>
+            <small>Neural engine active</small>
+          </div>
+          <span class="processing-pulse"></span>
+        </div>
+
+        <div class="visual-caption">
+          <span>01 / INTELLIGENCE</span>
+          <span>CONNECTED THINKING</span>
+        </div>
+      </div>
+
+      <div class="hero-bottom-line">
+        <span>BUILT FOR THE CURIOUS</span>
+        <span class="line"></span>
+        <span>POWERED BY POSSIBILITY <span class="cyan-text">✳</span></span>
+      </div>
+    </section>
+
+    <!-- Trusted By -->
+    <section class="trusted-section">
+      <div class="container trusted-inner">
+        <p>THE TOOLS MAY CHANGE. YOUR IDEAS ARE LIMITLESS.</p>
+        <div class="trusted-brands">
+          <span class="trusted-brand"><span>◈</span> vertex</span>
+          <span class="trusted-brand"><span>✳</span> orbitlabs</span>
+          <span class="trusted-brand"><span>⬡</span> monolith</span>
+          <span class="trusted-brand"><span>◉</span> synthwave</span>
+          <span class="trusted-brand"><span>✣</span> nexora</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="platform-section section-padding" id="platform">
+      <div class="container">
+        <div class="section-heading centered">
+          <span class="section-label">YOUR CREATIVE COMMAND CENTER</span>
+          <h2>Less switching.<br><span class="gradient-text">More creating.</span></h2>
+          <p>
+            Your research, ideas, and AI tools work together in one
+            beautifully organized space.
+          </p>
+        </div>
+
+        <div class="dashboard-window">
+          <div class="window-topbar">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <div class="window-address"><span>✦</span> app.neuralspace.ai/workspace</div>
+            <div class="window-status"><span></span> Connected</div>
+          </div>
+
+          <div class="dashboard-layout">
+            <aside class="dashboard-sidebar">
+              <div class="sidebar-brand">N<span>SPACE</span></div>
+
+              <div class="sidebar-group-label">WORKSPACE</div>
+              <a href="#platform" class="sidebar-link active"><span>▦</span> Overview</a>
+              <a href="#features" class="sidebar-link"><span>⌕</span> Research</a>
+              <a href="#features" class="sidebar-link"><span>✎</span> Documents</a>
+              <a href="#features" class="sidebar-link"><span>⌘</span> AI Studio</a>
+
+              <div class="sidebar-group-label">YOUR SPACE</div>
+              <a href="#workflow" class="sidebar-link"><span>◇</span> My projects</a>
+              <a href="#workflow" class="sidebar-link"><span>◷</span> Recent activity</a>
+
+              <div class="sidebar-user">
+                <span class="user-avatar">Y</span>
+                <span><strong>Your workspace</strong><small>Free plan</small></span>
+                <span class="sidebar-more">···</span>
+              </div>
+            </aside>
+
+            <div class="dashboard-main">
+              <div class="dashboard-welcome">
+                <div>
+                  <span class="dashboard-date">MONDAY, 09:41 AM</span>
+                  <h3>Your ideas, in motion. <span>✳</span></h3>
+                  <p>Everything you need to make something brilliant.</p>
+                </div>
+                <a href="#get-started" class="button button-primary dashboard-new">+ New project</a>
+              </div>
+
+              <div class="dashboard-stats">
+                <article class="stat-card">
+                  <div class="stat-top"><span>Active projects</span><span>↗</span></div>
+                  <strong>12</strong>
+                  <small><span class="stat-up">↑ 3</span> this week</small>
+                  <div class="stat-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                </article>
+
+                <article class="stat-card">
+                  <div class="stat-top"><span>AI generations</span><span>✧</span></div>
+                  <strong>248</strong>
+                  <small><span class="stat-up">↑ 18%</span> this month</small>
+                  <div class="stat-chart">
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                  </div>
+                </article>
+
+                <article class="stat-card">
+                  <div class="stat-top"><span>Time reclaimed</span><span>◷</span></div>
+                  <strong>32<span class="stat-unit">h</span></strong>
+                  <small>More time for big ideas</small>
+                  <div class="time-progress"><span></span></div>
+                </article>
+              </div>
+
+              <div class="dashboard-bottom">
+                <div class="project-panel">
+                  <div class="panel-heading"><strong>Recent projects</strong><a href="#workflow">View all ↗</a></div>
+
+                  <div class="project-row">
+                    <span class="project-icon purple-project">✧</span>
+                    <div><strong>Future of intelligent work</strong><small>Research · Edited 12 min ago</small></div>
+                    <span class="project-tag">Research</span>
+                  </div>
+
+                  <div class="project-row">
+                    <span class="project-icon cyan-project">⌘</span>
+                    <div><strong>Product launch strategy</strong><small>Document · Edited 1 hour ago</small></div>
+                    <span class="project-tag">Writing</span>
+                  </div>
+
+                  <div class="project-row">
+                    <span class="project-icon pink-project">◈</span>
+                    <div><strong>Creative concepts v2</strong><small>AI Studio · Edited yesterday</small></div>
+                    <span class="project-tag">Creative</span>
+                  </div>
+                </div>
+
+                <div class="ai-panel">
+                  <div class="ai-panel-icon">✳</div>
+                  <span class="ai-panel-label">YOUR AI ASSISTANT</span>
+                  <h4>Where should we start?</h4>
+                  <p>Give your next big idea a place to grow.</p>
+                  <div class="fake-prompt">Ask anything... <span>↗</span></div>
+                  <div class="suggestion-pills"><span>Research</span><span>Brainstorm</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="dashboard-note"><span>✦</span> A little preview of what your next idea could look like.</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section section-padding" id="features">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">ONE SPACE. ENDLESS POSSIBILITIES.</span>
+          <h2>Everything clicks<br>when it <span class="gradient-text">connects.</span></h2>
+          <p>
+            Powerful AI capabilities, thoughtfully connected to help you
+            move from your first question to your next breakthrough.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card feature-large">
+            <div class="feature-card-top">
+              <span class="feature-number">01 / RESEARCH</span>
+              <span class="feature-arrow">↗</span>
+            </div>
+            <div class="feature-illustration research-art">
+              <div class="research-orbit research-orbit-one"></div>
+              <div class="research-orbit research-orbit-two"></div>
+              <div class="research-center">⌕</div>
+              <span class="research-tag tag-a">Knowledge</span>
+              <span class="research-tag tag-b">Sources</span>
+              <span class="research-tag tag-c">Insights</span>
+            </div>
+            <h3>Research that goes deeper.</h3>
+            <p>Explore complex topics, organize findings, and turn scattered information into useful insights.</p>
+            <a href="#get-started" class="text-link">Explore research <span>→</span></a>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card-top">
+              <span class="feature-number">02 / CREATION</span>
+              <span class="feature-arrow">↗</span>
+            </div>
+            <div class="feature-illustration writing-art">
+              <div class="writing-paper">
+                <span class="paper-symbol">✳</span>
+                <i class="paper-line line-long"></i>
+                <i class="paper-line line-medium"></i>
+                <i class="paper-line line-short"></i>
+                <i class="paper-line line-long"></i>
+                <i class="paper-line line-medium"></i>
+              </div>
+              <span class="writing-spark">✦</span>
+            </div>
+            <h3>Make ideas tangible.</h3>
+            <p>Write, rewrite, brainstorm, and shape your rough thoughts into work worth sharing.</p>
+            <a href="#get-started" class="text-link">Start creating <span>→</span></a>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card-top">
+              <span class="feature-number">03 / INTELLIGENCE</span>
+              <span class="feature-arrow">↗</span>
+            </div>
+            <div class="feature-illustration intelligence-art">
+              <div class="intelligence-grid">
+                <span>✳</span><span>⌘</span><span>◇</span>
+                <span>⌁</span><span class="intelligence-main">N</span><span>✧</span>
+                <span>◈</span><span>⌬</span><span>✦</span>
+              </div>
+              <div class="intelligence-line"></div>
+            </div>
+            <h3>Work smarter with AI.</h3>
+            <p>Bring intelligent assistance into your workflow and spend more energy on decisions that matter.</p>
+            <a href="#get-started" class="text-link">Meet your AI <span>→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solutions -->
+    <section class="solutions-section section-padding" id="solutions">
+      <div class="container solutions-layout">
+        <div class="solutions-content">
+          <span class="section-label">BUILT AROUND YOUR AMBITION</span>
+          <h2>Big goals need<br><span class="gradient-text">better workflows.</span></h2>
+          <p class="solutions-description">
+            Whether you're learning something new or building what's next,
+            NeuralSpace gives your curiosity room to work.
+          </p>
+
+          <div class="solution-list">
+            <article class="solution-item">
+              <span class="solution-icon">⌕</span>
+              <div><h3>For curious minds</h3><p>Learn faster, connect ideas, and make sense of complicated topics.</p></div>
+              <span class="solution-check">↗</span>
+            </article>
+            <article class="solution-item">
+              <span class="solution-icon">⌘</span>
+              <div><h3>For builders and makers</h3><p>Explore concepts, solve problems, and keep your projects moving.</p></div>
+              <span class="solution-check">↗</span>
+            </article>
+            <article class="solution-item">
+              <span class="solution-icon">✧</span>
+              <div><h3>For creative thinkers</h3><p>Get unstuck, experiment with directions, and turn inspiration into action.</p></div>
+              <span class="solution-check">↗</span>
+            </article>
+          </div>
+
+          <a href="#get-started" class="button button-primary button-large">Find your flow <span>↗</span></a>
+        </div>
+
+        <div class="solutions-visual">
+          <div class="solution-backdrop"></div>
+          <div class="solution-orbit orbit-solution-one"></div>
+          <div class="solution-orbit orbit-solution-two"></div>
+          <div class="solution-orbit orbit-solution-three"></div>
+          <div class="solution-core"><span>✳</span><small>YOUR IDEAS</small></div>
+
+          <div class="solution-float solution-float-one"><span>⌕</span><div><strong>Explore</strong><small>Find new connections</small></div></div>
+          <div class="solution-float solution-float-two"><span>✎</span><div><strong>Create</strong><small>Give ideas a form</small></div></div>
+          <div class="solution-float solution-float-three"><span>⌘</span><div><strong>Build</strong><small>Turn plans into action</small></div></div>
+          <div class="solution-annotation">ONE CONNECTED WORKFLOW <span>↗</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow -->
+    <section class="workflow-section section-padding" id="workflow">
+      <div class="container">
+        <div class="section-heading centered">
+          <span class="section-label">FROM THOUGHT TO DONE</span>
+          <h2>Your next breakthrough,<br><span class="gradient-text">step by step.</span></h2>
+          <p>A simpler way to turn a question into something meaningful.</p>
+        </div>
+
+        <div class="workflow-grid">
+          <article class="workflow-step">
+            <div class="step-top"><span>01</span><span class="step-icon">⌕</span></div>
+            <div class="step-visual step-visual-one"><div class="step-search">What if we could...<span>⌕</span></div><div class="step-orbit-dot"></div></div>
+            <h3>Start with a question.</h3>
+            <p>Bring a problem, a rough idea, or a subject you want to understand.</p>
+          </article>
+
+          <article class="workflow-step">
+            <div class="step-top"><span>02</span><span class="step-icon">✳</span></div>
+            <div class="step-visual step-visual-two"><div class="step-brain">✳</div><div class="step-pulse pulse-one"></div><div class="step-pulse pulse-two"></div><span class="step-processing">CONNECTING IDEAS</span></div>
+            <h3>Explore possibilities.</h3>
+            <p>Use AI to uncover patterns, consider options, and find your direction.</p>
+          </article>
+
+          <article class="workflow-step">
+            <div class="step-top"><span>03</span><span class="step-icon">↗</span></div>
+            <div class="step-visual step-visual-three"><div class="output-sheet"><span>✦ YOUR NEXT MOVE</span><i></i><i></i><i></i><b>✓ Ready to build</b></div></div>
+            <h3>Make it happen.</h3>
+            <p>Turn your insights into a plan, a project, or your next great creation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section section-padding" id="pricing">
+      <div class="container">
+        <div class="section-heading centered">
+          <span class="section-label">SIMPLE PLANS. BIG IDEAS.</span>
+          <h2>Room to grow.<br><span class="gradient-text">Freedom to explore.</span></h2>
+          <p>Start free and choose the space you need as your ambitions grow.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <div class="pricing-name">Explorer</div>
+            <p class="pricing-description">For curious minds just getting started.</p>
+            <div class="price"><strong>$0</strong><span>/ forever</span></div>
+            <a href="#get-started" class="button button-secondary pricing-button">Get started free</a>
+            <div class="pricing-divider"></div>
+            <span class="includes-label">THE ESSENTIALS</span>
+            <ul class="pricing-features">
+              <li><span>✓</span> Basic AI assistance</li>
+              <li><span>✓</span> Personal workspace</li>
+              <li><span>✓</span> Limited monthly usage</li>
+              <li><span>✓</span> Essential tools</li>
+            </ul>
+          </article>
+
+          <article class="pricing-card pricing-featured">
+            <div class="popular-label">✦ MOST POPULAR</div>
+            <div class="pricing-name">Creator</div>
+            <p class="pricing-description">For people turning big ideas into reality.</p>
+            <div class="price"><strong>$19</strong><span>/ month</span></div>
+            <a href="#get-started" class="button button-primary pricing-button">Choose Creator <span>↗</span></a>
+            <div class="pricing-divider"></div>
+            <span class="includes-label">EVERYTHING IN EXPLORER, PLUS</span>
+            <ul class="pricing-features">
+              <li><span>✓</span> Higher AI usage limits</li>
+              <li><span>✓</span> Advanced research workflows</li>
+              <li><span>✓</span> Extended project history</li>
+              <li><span>✓</span> Priority access to features</li>
+            </ul>
+          </article>
+
+          <article class="pricing-card">
+            <div class="pricing-name">Studio</div>
+            <p class="pricing-description">For teams building something bigger.</p>
+            <div class="price"><strong>$49</strong><span>/ month</span></div>
+            <a href="#get-started" class="button button-secondary pricing-button">Explore Studio</a>
+            <div class="pricing-divider"></div>
+            <span class="includes-label">EVERYTHING IN CREATOR, PLUS</span>
+            <ul class="pricing-features">
+              <li><span>✓</span> Shared team workspace</li>
+              <li><span>✓</span> Collaborative projects</li>
+              <li><span>✓</span> Team management tools</li>
+              <li><span>✓</span> Expanded usage limits</li>
+            </ul>
+          </article>
+        </div>
+        <p class="pricing-footnote">Illustrative pricing for this demo landing page. No actual subscriptions are being sold.</p>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section section-padding" id="testimonials">
+      <div class="container">
+        <div class="section-heading centered">
+          <span class="section-label">GOOD IDEAS TRAVEL</span>
+          <h2>Made for minds<br>that <span class="gradient-text">never stop.</span></h2>
+          <p>Imagine what a little more clarity could do for your day.</p>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>“It feels like having a dedicated space where my messy ideas can finally become something real.”</blockquote>
+            <div class="testimonial-author"><span class="testimonial-avatar testimonial-avatar-a">A</span><div><strong>Alex Morgan</strong><small>Independent creator</small></div><span class="quote-mark">”</span></div>
+          </article>
+
+          <article class="testimonial-card testimonial-highlight">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>“The biggest win isn't doing more. It's spending less time figuring out where to begin.”</blockquote>
+            <div class="testimonial-author"><span class="testimonial-avatar testimonial-avatar-b">J</span><div><strong>Jordan Lee</strong><small>Product designer</small></div><span class="quote-mark">”</span></div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>“A thoughtful concept for people who love learning, building, and exploring what's possible with AI.”</blockquote>
+            <div class="testimonial-author"><span class="testimonial-avatar testimonial-avatar-c">S</span><div><strong>Sam Rivera</strong><small>Developer and learner</small></div><span class="quote-mark">”</span></div>
+          </article>
+        </div>
+        <p class="testimonial-note">Sample testimonials for a fictional product concept.</p>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section section-padding" id="get-started">
+      <div class="container">
+        <div class="cta-card">
+          <div class="cta-orb cta-orb-one"></div>
+          <div class="cta-orb cta-orb-two"></div>
+          <div class="cta-content">
+            <span class="section-label">YOUR NEXT CHAPTER STARTS HERE</span>
+            <h2>Make space for<br><span class="gradient-text">what's possible.</span></h2>
+            <p>Your next great idea doesn't need a perfect plan. It needs a place to start.</p>
+            <a href="mailto:hello@example.com?subject=NeuralSpace%20Early%20Access" class="button button-primary button-large">
+              Join the journey <span>↗</span>
+            </a>
+            <span class="cta-caption"><span>✦</span> Curiosity welcome. Big ideas encouraged.</span>
+          </div>
+          <div class="cta-decoration" aria-hidden="true">
+            <div class="cta-ring cta-ring-one"></div>
+            <div class="cta-ring cta-ring-two"></div>
+            <div class="cta-ring cta-ring-three"></div>
+            <div class="cta-core">N<span>✳</span></div>
+            <span class="cta-spark cta-spark-one">✦</span>
+            <span class="cta-spark cta-spark-two">✧</span>
+            <span class="cta-spark cta-spark-three">✳</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand-column">
+          <a href="#home" class="brand">
+            <span class="brand-icon"><span></span><span></span><span></span></span>
+            <span>neural<span class="brand-light">space</span></span>
+          </a>
+          <p>A little more clarity.<br>A lot more possibility.</p>
+          <div class="footer-socials">
+            <a href="https://github.com/" aria-label="GitHub">GH</a>
+            <a href="https://www.linkedin.com/" aria-label="LinkedIn">in</a>
+            <a href="https://x.com/" aria-label="X">𝕏</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Explore</h4>
+          <a href="#features">Features</a>
+          <a href="#solutions">Solutions</a>
+          <a href="#workflow">How it works</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Discover</h4>
+          <a href="#platform">Workspace</a>
+          <a href="#features">AI research</a>
+          <a href="#features">AI creation</a>
+          <a href="#testimonials">Community</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Get in touch</h4>
+          <a href="mailto:hello@example.com">Contact us</a>
+          <a href="#get-started">Early access</a>
+          <a href="#home">Back to top ↑</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 NeuralSpace. Made for the curious.</span>
+        <span>AN EXPERIMENT IN WHAT'S POSSIBLE <span class="cyan-text">✳</span></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
