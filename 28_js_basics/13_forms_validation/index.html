@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 13: Forms Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            width: 300px;
+            font-size: 14px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #errorMsg {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Login Form Validation</h1>
+
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="emailInput">Email Address:</label>
+            <input type="email" id="emailInput" placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label for="passwordInput">Password:</label>
+            <input type="password" id="passwordInput" placeholder="Enter your password">
+        </div>
+
+        <button type="submit">Log In</button>
+    </form>
+
+    <div id="errorMsg"></div>
+
+    <!-- Link your script file here -->
+    <!-- <script src="04_solutions.js"></script> -->
+</body>
+</html>
