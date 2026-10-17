@@ -57,4 +57,9 @@ console.log("Merged Profile:", mergedProfile); // { name: "David", age: 32, role
 console.log("\n=== Part C: Challenge ===");
 const countProperties = obj => Object.keys(obj).length;
 const testObj = { name: "Ahmed", role: "Admin", active: true };
-console.log("Total properties:", countProperties(testObj)); // 3
+console.log("Total properties:", countProperties(testObj)); // 
+
+
+
+
+
