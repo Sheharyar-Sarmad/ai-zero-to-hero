@@ -191,7 +191,7 @@ See [`project/README.md`](./project/README.md) for the full project documentatio
 ### 1. Clone and open
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Sheharyar-Sarmad/ai-zero-to-hero
 cd ai-zero-to-hero/28_js_basics
 code .
 ```
