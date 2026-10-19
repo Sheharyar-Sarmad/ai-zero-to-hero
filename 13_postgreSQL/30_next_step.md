@@ -56,7 +56,7 @@ Now you can:
 
 ---
 
-## Your Superpower Now
+## Your Superpower After These Next Steps
 
 You can:
 
@@ -68,7 +68,7 @@ You can:
 | Linux | Navigate and control servers |
 | FastAPI | Deploy AI as APIs |
 
-**That's a Full-Stack AI Engineer!**
+**That's a Data Science!**
 
 ---
 
