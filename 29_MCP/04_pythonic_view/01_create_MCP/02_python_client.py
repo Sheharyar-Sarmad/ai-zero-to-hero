@@ -7,6 +7,8 @@ import sys
 # Import asyncio to run asynchronous functions and manage the async runtime.
 import asyncio
 
+from rich import print # For better printing style 
+
 # Import stdio_client to launch a local MCP server as a subprocess and
 # establish communication with it through standard input/output streams.
 from mcp.client.stdio import stdio_client

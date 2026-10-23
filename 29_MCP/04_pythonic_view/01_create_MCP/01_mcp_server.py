@@ -3,6 +3,7 @@
 # exposing Python functions as tools and handling incoming MCP messages.
 from fastmcp import FastMCP
 
+from rich import print # For better printing style 
 
 # Create an MCP server instance.
 # Think of this as creating the server-side application that will expose
