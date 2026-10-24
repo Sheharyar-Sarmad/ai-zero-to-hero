@@ -33,7 +33,6 @@ client: MultiServerMCPClient = MultiServerMCPClient(
     }
 )
 
-
 async def main() -> None:
     # Discover tools exposed by the configured MCP servers.
     # This is asynchronous because the client must communicate with the
