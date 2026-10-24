@@ -11,6 +11,7 @@ The goal is not merely to learn how to call MCP tools. It is to understand how M
 - **Main learning repository:** [AI Zero to Hero](https://github.com/Sheharyar-Sarmad/ai-zero-to-hero)
 - **MCP module:** [29 — MCP](https://github.com/Sheharyar-Sarmad/ai-zero-to-hero/tree/main/29_MCP)
 - **LinkedIn:** [Sheharyar Sarmad](https://www.linkedin.com/in/sheharyar-sarmad-9b7736289/)
+- **Html File** [FreeMCP](https://freemcp.netlify.app/)
 
 ## Learning Roadmap
 
